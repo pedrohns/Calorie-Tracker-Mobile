@@ -1,12 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:pie_chart/pie_chart.dart';
+import 'package:calorie_tracker/data/dummy_data.dart';
+import 'package:calorie_tracker/model/user.dart';
 
 class CalorieReview extends StatelessWidget {
-  const CalorieReview({super.key});
+  CalorieReview({super.key});
+  final _user = dummyData;
+  List<User> get user => [..._user];
+  // Tive que colocar a inicialização do map dentro do build,porque as expressões de inicialização
+  //são avaliadas antes que o construtor do objeto seja executado,
+  //assim ele estava iniciando antes do objeto dummy
 
   @override
   Widget build(BuildContext context) {
+    final Map<String, double> dataMap = {
+      'Calorias': user[0].consumedCalorie,
+    };
+    final colorList = <Color>[
+      Theme.of(context).colorScheme.secondary,
+    ];
     final headlineTitulo = Theme.of(context).textTheme.headline1!;
     final headlineCorpo = Theme.of(context).textTheme.headline6!;
+    final int leftoverCalorie =
+        (user[0].targetCalorie - user[0].consumedCalorie).toInt();
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -14,13 +30,45 @@ class CalorieReview extends StatelessWidget {
         Text('Calorias', style: headlineTitulo),
         SizedBox(height: 3),
         Text(
-          'Restantes = Meta - Alimento + Exercício',
+          'Restantes = Meta - Alimento',
           style: headlineCorpo,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            CircleAvatar(),
+            // CircleAvatar(),
+            Stack(
+              //envolvendo o PieChart em uma Stack para colocar o texto dentro
+              children: [
+                PieChart(
+                  dataMap: dataMap,
+                  chartRadius: MediaQuery.of(context).size.width / 4.4,
+                  ringStrokeWidth: 4,
+                  chartType: ChartType.ring,
+                  baseChartColor: Colors.grey[50]!.withOpacity(0.15),
+                  colorList: colorList,
+                  legendOptions: LegendOptions(
+                    showLegends: false,
+                  ),
+                  chartValuesOptions: ChartValuesOptions(
+                    showChartValuesInPercentage: false,
+                    showChartValueBackground: false,
+                    showChartValues: false,
+                  ),
+                  totalValue: user[0].targetCalorie,
+                ),
+                Positioned.fill(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "$leftoverCalorie\n Restantes",
+                      style: headlineCorpo,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ],
+            ),
             SizedBox(
               width: 10,
             ),
@@ -45,7 +93,7 @@ class CalorieReview extends StatelessWidget {
                             style: headlineCorpo,
                           ),
                           Text(
-                            '2020',
+                            user[0].targetCalorie.toStringAsFixed(0),
                             style: headlineTitulo,
                           ),
                         ],
@@ -69,7 +117,7 @@ class CalorieReview extends StatelessWidget {
                             style: headlineCorpo,
                           ),
                           Text(
-                            '2020',
+                            user[0].consumedCalorie.toStringAsFixed(0),
                             style: headlineTitulo,
                           ),
                         ],
@@ -93,7 +141,7 @@ class CalorieReview extends StatelessWidget {
                             style: headlineCorpo,
                           ),
                           Text(
-                            '2020',
+                            user[0].dairyExercice.toString(),
                             style: headlineTitulo,
                           ),
                         ],
