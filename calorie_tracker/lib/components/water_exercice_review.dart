@@ -1,13 +1,10 @@
 import 'package:calorie_tracker/data/dummy_data.dart';
 import 'package:flutter/material.dart';
-import 'package:calorie_tracker/model/user.dart';
 import 'package:calorie_tracker/model/boxes_text.dart';
 
 class WaterExeciceReview extends StatelessWidget {
   final String whichBoxes; //  Water, Exercice
-  WaterExeciceReview({super.key, required this.whichBoxes});
-  final _user = dummyData;
-  List<User> get user => [..._user];
+  const WaterExeciceReview({super.key, required this.whichBoxes});
 
   @override
   Widget build(BuildContext context) {
