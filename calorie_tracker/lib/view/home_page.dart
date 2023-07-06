@@ -1,4 +1,5 @@
 import 'package:calorie_tracker/components/calorie_review.dart';
+import 'package:calorie_tracker/components/water_exercice_review.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -40,26 +41,8 @@ class HomePage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    height: 150,
-                    width: 175,
-                    padding: EdgeInsets.all(16.0),
-                    margin: EdgeInsets.all(10.0),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  Container(
-                    height: 150,
-                    width: 175,
-                    padding: EdgeInsets.all(16.0),
-                    margin: EdgeInsets.all(10.0),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
+                  WaterExeciceReview(whichBoxes: 'Water'),
+                  WaterExeciceReview(whichBoxes: 'Exercice'),
                 ],
               ),
               Center(

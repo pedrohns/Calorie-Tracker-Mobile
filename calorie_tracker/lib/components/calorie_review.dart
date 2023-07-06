@@ -21,6 +21,7 @@ class CalorieReview extends StatelessWidget {
     ];
     final headlineTitulo = Theme.of(context).textTheme.headline1!;
     final headlineCorpo = Theme.of(context).textTheme.headline6!;
+    final headlineNumbers = Theme.of(context).textTheme.headline2!;
     final int leftoverCalorie =
         (user[0].targetCalorie - user[0].consumedCalorie).toInt();
     return Column(
@@ -51,8 +52,6 @@ class CalorieReview extends StatelessWidget {
                     showLegends: false,
                   ),
                   chartValuesOptions: ChartValuesOptions(
-                    showChartValuesInPercentage: false,
-                    showChartValueBackground: false,
                     showChartValues: false,
                   ),
                   totalValue: user[0].targetCalorie,
@@ -94,7 +93,7 @@ class CalorieReview extends StatelessWidget {
                           ),
                           Text(
                             user[0].targetCalorie.toStringAsFixed(0),
-                            style: headlineTitulo,
+                            style: headlineNumbers,
                           ),
                         ],
                       ),
@@ -118,7 +117,7 @@ class CalorieReview extends StatelessWidget {
                           ),
                           Text(
                             user[0].consumedCalorie.toStringAsFixed(0),
-                            style: headlineTitulo,
+                            style: headlineNumbers,
                           ),
                         ],
                       ),
@@ -142,7 +141,7 @@ class CalorieReview extends StatelessWidget {
                           ),
                           Text(
                             user[0].dairyExercice.toString(),
-                            style: headlineTitulo,
+                            style: headlineNumbers,
                           ),
                         ],
                       ),

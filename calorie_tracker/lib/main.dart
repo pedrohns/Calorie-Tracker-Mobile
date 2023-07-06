@@ -27,6 +27,16 @@ class MyAppState extends State<MyApp> {
                 fontSize: 18,
                 color: Color.fromRGBO(255, 255, 255, 1),
               ),
+              headline2: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontFamily: 'OpenSans',
+                fontSize: 15,
+                color: Color.fromRGBO(255, 255, 255, 1),
+              ),
+              headline5: const TextStyle(
+                  fontSize: 13,
+                  fontFamily: 'OpenSans',
+                  color: Color.fromRGBO(255, 255, 255, 1)),
             ),
         appBarTheme:
             AppBarTheme(backgroundColor: Color.fromRGBO(21, 23, 35, 0.86)),
