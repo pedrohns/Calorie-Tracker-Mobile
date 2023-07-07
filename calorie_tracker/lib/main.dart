@@ -17,23 +17,28 @@ class MyAppState extends State<MyApp> {
         ),
         fontFamily: 'OpenSans',
         textTheme: ThemeData.light().textTheme.copyWith(
-              headline6: const TextStyle(
-                  fontSize: 11,
-                  fontFamily: 'OpenSans',
-                  color: Color.fromRGBO(255, 255, 255, 1)),
-              headline1: const TextStyle(
+              titleMedium: const TextStyle(
+                //headline6
+                fontSize: 11,
+                fontFamily: 'OpenSans',
+                color: Color.fromRGBO(255, 255, 255, 1),
+              ),
+              titleLarge: const TextStyle(
+                //headline1
                 fontWeight: FontWeight.bold,
                 fontFamily: 'OpenSans',
                 fontSize: 18,
                 color: Color.fromRGBO(255, 255, 255, 1),
               ),
-              headline2: const TextStyle(
+              titleSmall: const TextStyle(
+                //headline2
                 fontWeight: FontWeight.bold,
                 fontFamily: 'OpenSans',
                 fontSize: 15,
                 color: Color.fromRGBO(255, 255, 255, 1),
               ),
-              headline5: const TextStyle(
+              bodySmall: const TextStyle(
+                  //headline5
                   fontSize: 13,
                   fontFamily: 'OpenSans',
                   color: Color.fromRGBO(255, 255, 255, 1)),

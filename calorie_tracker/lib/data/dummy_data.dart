@@ -9,3 +9,23 @@ final List<User> dummyData = [
     alcohoolConsumed: 1000,
   ),
 ];
+
+List<WeightData> getWeightData() {
+  final List<WeightData> chartData = [
+    WeightData(99.5, 1),
+    WeightData(99.5, 2),
+    WeightData(99, 3),
+    WeightData(98, 4),
+    WeightData(97.5, 5),
+    WeightData(97, 6),
+  ];
+  return chartData;
+}
+
+List<WeightData> weightData = getWeightData();
+
+class WeightData {
+  WeightData(this.weight, this.day);
+  final double weight;
+  final double day;
+}

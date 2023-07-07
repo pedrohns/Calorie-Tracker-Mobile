@@ -1,10 +1,9 @@
-import 'package:calorie_tracker/data/dummy_data.dart';
 import 'package:flutter/material.dart';
 import 'package:calorie_tracker/model/boxes_text.dart';
 
 class WaterExeciceReview extends StatelessWidget {
   final String whichBoxes; //  Water, Exercice
-  const WaterExeciceReview({super.key, required this.whichBoxes});
+  const WaterExeciceReview({key, required this.whichBoxes});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +28,7 @@ class WaterExeciceReview extends StatelessWidget {
             children: [
               Text(
                 selectedBox.getTitle(),
-                style: Theme.of(context).textTheme.headline2!,
+                style: Theme.of(context).textTheme.titleSmall!,
               ),
               IconButton(
                 onPressed: () {},
@@ -47,7 +46,7 @@ class WaterExeciceReview extends StatelessWidget {
               SizedBox(width: 5),
               Text(
                 '${selectedBox.getValues()['value1'].toString()} ${selectedBox.posFixString()[0]}',
-                style: Theme.of(context).textTheme.headline5!,
+                style: Theme.of(context).textTheme.bodySmall!,
               ),
             ],
           ),
@@ -61,7 +60,7 @@ class WaterExeciceReview extends StatelessWidget {
                 whichBoxes == 'Water'
                     ? '${selectedBox.getValues()['value1'].toString()} ${selectedBox.posFixString()[0]}'
                     : '$time ${selectedBox.posFixString()[1]}',
-                style: Theme.of(context).textTheme.headline5!,
+                style: Theme.of(context).textTheme.bodySmall!,
               ),
             ],
           ),

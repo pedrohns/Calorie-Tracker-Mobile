@@ -4,7 +4,7 @@ import 'package:calorie_tracker/data/dummy_data.dart';
 import 'package:calorie_tracker/model/user.dart';
 
 class CalorieReview extends StatelessWidget {
-  CalorieReview({super.key});
+  CalorieReview({key});
   final _user = dummyData;
   List<User> get user => [..._user];
   // Tive que colocar a inicialização do map dentro do build,porque as expressões de inicialização
@@ -19,9 +19,9 @@ class CalorieReview extends StatelessWidget {
     final colorList = <Color>[
       Theme.of(context).colorScheme.secondary,
     ];
-    final headlineTitulo = Theme.of(context).textTheme.headline1!;
-    final headlineCorpo = Theme.of(context).textTheme.headline6!;
-    final headlineNumbers = Theme.of(context).textTheme.headline2!;
+    final headlineTitulo = Theme.of(context).textTheme.titleLarge!;
+    final headlineCorpo = Theme.of(context).textTheme.titleMedium!;
+    final headlineNumbers = Theme.of(context).textTheme.titleSmall!;
     final int leftoverCalorie =
         (user[0].targetCalorie - user[0].consumedCalorie).toInt();
     return Column(
