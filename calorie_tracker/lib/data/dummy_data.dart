@@ -1,14 +1,14 @@
 import 'package:calorie_tracker/model/user.dart';
 
-final List<User> dummyData = [
-  User(
-    targetCalorie: 2500,
-    dairyExercice: 400,
-    consumedCalorie: 2300,
-    waterConsumed: 3000,
-    alcohoolConsumed: 1000,
-  ),
-];
+final User userData = User(
+  targetCalorie: 2500,
+  dairyExercice: 400,
+  consumedCalorie: 2300,
+  waterConsumed: 3000,
+  alcohoolConsumed: 1000,
+  id: '1',
+);
+//List<User> get dummyData => [..._dummyData];
 
 List<WeightData> getWeightData() {
   final List<WeightData> chartData = [

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:calorie_tracker/model/user.dart';
 import 'package:calorie_tracker/data/dummy_data.dart';
 
 class BoxesText {
@@ -8,8 +7,7 @@ class BoxesText {
     required this.whatBox,
   });
 
-  final _user = dummyData;
-  List<User> get user => [..._user];
+  final user = userData;
 
   String getTitle() {
     if (whatBox == 'Water') {
@@ -28,13 +26,13 @@ class BoxesText {
   Map<String, dynamic> getValues() {
     if (whatBox == 'Water') {
       return {
-        'value1': user[0].waterConsumed,
-        'value2': user[0].alcohoolConsumed!,
+        'value1': user.waterConsumed,
+        'value2': user.alcohoolConsumed!,
       };
     }
     return {
-      'value1': user[0].dairyExercice,
-      'value2': (user[0].timedExecized) ?? DateTime.now(),
+      'value1': user.dairyExercice,
+      'value2': (user.timedExercized) ?? DateTime.now(),
     };
   }
 

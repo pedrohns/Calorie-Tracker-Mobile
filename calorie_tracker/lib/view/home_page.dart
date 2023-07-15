@@ -8,47 +8,34 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Calorie Tracker',
-            style: Theme.of(context).textTheme.titleLarge!,
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Center(
+            child: Container(
+              height: 200,
+              width: 370,
+              margin: EdgeInsets.all(10.0),
+              padding: EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: CalorieReview(),
+            ),
           ),
-          leading: Image.asset(
-            'assets/img/male_user.png', // caminho para o arquivo de imagem
-            fit: BoxFit.contain,
-            color: Colors.lightBlueAccent, // ajustar a imagem dentro do AppBar
-          ),
-        ),
-        body: Container(
-          color: Color.fromRGBO(18, 19, 29, 0.859), // cor principal
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+          SizedBox(height: 10.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Center(
-                child: Container(
-                  height: 200,
-                  width: 370,
-                  margin: EdgeInsets.all(10.0),
-                  padding: EdgeInsets.all(16.0),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primary,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: CalorieReview(),
-                ),
-              ),
-              SizedBox(height: 10.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  WaterExeciceReview(whichBoxes: 'Water'),
-                  WaterExeciceReview(whichBoxes: 'Exercice'),
-                ],
-              ),
-              WeightReview(),
+              WaterExeciceReview(whichBoxes: 'Water'),
+              WaterExeciceReview(whichBoxes: 'Exercice'),
             ],
           ),
-        ));
+          WeightReview(),
+        ],
+      ),
+    );
   }
 }
