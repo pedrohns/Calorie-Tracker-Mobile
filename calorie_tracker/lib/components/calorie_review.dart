@@ -2,7 +2,7 @@ import 'package:calorie_tracker/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:calorie_tracker/data/dummy_data.dart';
-import 'package:calorie_tracker/model/user.dart';
+// import 'package:calorie_tracker/model/user.dart';
 
 class CalorieReview extends StatelessWidget {
   CalorieReview({key});

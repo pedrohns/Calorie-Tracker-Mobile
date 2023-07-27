@@ -33,7 +33,7 @@ module.exports = function (app) {
     app.get("/createListFood", async function (req, response) {
         const counter = 150;
         const promises = [];
-        for (let index = 101; index < counter; index++) {
+        for (let index = 0; index < counter; index++) {
           promises.push(
             fetch(`https://api.nal.usda.gov/fdc/v1/foods/list?api_key=${process.env.CALORIE_KEY}&pageNumber=${index}&pageSize=50`, {
               headers: {
@@ -100,7 +100,7 @@ module.exports = function (app) {
         last_upd = now(), deleted_by = '', food_id = '${foodId}', quantity_cal = ${data.energy},
         carb = ${data.carbohydrate}, fat = ${data.totalLipid}, protein = ${data.protein},
         fiber = ${data.fiber}, sugar = ${data.sugar} `;
-        calorieDao.insert("insert into ct_food_details set " + string);
+        calorieDao.insert(`insert into ct_food_details set ${string} on duplicate key update food_id = '${foodId}'`);
         // console.log(data)
         // process.exit()  usado como se fosse um die()
 
@@ -116,7 +116,7 @@ module.exports = function (app) {
         foodId = await generateRowid();
         string = `rowid = '${foodId}',created_by = 'i',last_upd_by = 'i',created = now(),last_upd = now(), 
         code = '${id}', name = '${name}', deleted_by = ''`;
-        calorieDao.insert("insert into ct_food set " + string);
+        calorieDao.insert(`insert into ct_food set ${string} on duplicate key update code = '${id}'`);
         return foodId;
 
     }
