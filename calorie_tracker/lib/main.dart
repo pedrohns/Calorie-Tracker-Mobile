@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:calorie_tracker/network/http_overrides.dart';
 import 'package:calorie_tracker/utils/app_routes.dart';
+import 'package:calorie_tracker/view/food_page.dart';
 import 'package:calorie_tracker/view/tabs_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -63,6 +64,7 @@ class MyAppState extends State<MyApp> {
           AppRoutes.dairy: (ctx) => TabsScreen(
                 selectedScreenIndex: 1,
               ),
+          AppRoutes.food: (ctx) => FoodPage(),
         });
   }
 }

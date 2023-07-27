@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:calorie_tracker/utils/app_routes.dart';
 
 class TypeMeal extends StatelessWidget {
   final String title;
   final bool hasButton;
+  final String secondTitle;
   const TypeMeal({
     Key? key,
     required this.title,
     required this.hasButton,
+    required this.secondTitle,
   }) : super(key: key);
 
   @override
@@ -51,7 +54,10 @@ class TypeMeal extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushNamed(AppRoutes.food, arguments: secondTitle);
+                    },
                     child: Text(
                       title,
                       style: Theme.of(context).textTheme.titleSmall!,

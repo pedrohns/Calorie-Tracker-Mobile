@@ -16,34 +16,42 @@ class _DairyPageState extends State<DairyPage> {
     {
       'title': 'Café da Manhã',
       'hasButton': false,
+      'secondTitle': 'Café da Manhã',
     },
     {
       'title': 'ADICIONAR ALIMENTO',
       'hasButton': true,
+      'secondTitle': 'Café da Manhã',
     },
     {
       'title': 'Almoço',
       'hasButton': false,
+      'secondTitle': 'Almoço',
     },
     {
       'title': 'ADICIONAR ALIMENTO',
       'hasButton': true,
+      'secondTitle': 'Almoço',
     },
     {
       'title': 'Lanche',
       'hasButton': false,
+      'secondTitle': 'Lanche',
     },
     {
       'title': 'ADICIONAR ALIMENTO',
       'hasButton': true,
+      'secondTitle': 'Lanche',
     },
     {
       'title': 'Jantar',
       'hasButton': false,
+      'secondTitle': 'Jantar',
     },
     {
       'title': 'ADICIONAR ALIMENTO',
       'hasButton': true,
+      'secondTitle': 'Jantar',
     },
   ];
 
@@ -64,9 +72,11 @@ class _DairyPageState extends State<DairyPage> {
     for (Map<String, dynamic> element in titles) {
       String title = element['title'];
       bool hasButton = element['hasButton'];
+      String secondTitle = element['secondTitle'];
       widgets.add(TypeMeal(
         title: title,
         hasButton: hasButton,
+        secondTitle: secondTitle,
       ));
     }
     return Column(
