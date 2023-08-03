@@ -1,6 +1,7 @@
 const createConnection = require('../utils/sqlConnect')
 const readFile = require('../utils/readFile')
 let sql = require('../utils/sql')
+const consts = require('../consts')
 var fetch = require('node-fetch')
 var connectionBank = createConnection()
 var calorieDao = new sql(connectionBank)
@@ -11,23 +12,26 @@ module.exports = function (app) {
     console.log("Veio aqui por rotas!!!")
   })
 
-  // app.get("/createListFood", async function (req, response) {
-  //     let counter = 10;
-  //     for (let index = 0; index < counter; index++) {
-  //         let data = await fetch(`https://api.nal.usda.gov/fdc/v1/foods/list?api_key=${process.env.CALORIE_KEY}&pageNumber=${counter}&pageSize=50`, {
-  //             headers: {
-  //                 Accept: "application/json"
-  //             }, method: 'GET'
-  //         })
-  //         let url = await data.json()
-  //         const extractedData = await extractDesiredValues(url)
-  //         // console.log(extractedData)
-  //         // process.exit()
-  //         if (!!extractedData) {
-  //             response.send({ resp: extractedData })
-  //         }
-  //     }
-  // })
+  app.get("/createListFoodFatSecret", async function (req, response) {
+      let counter = 10;
+      for (let index = 0; index < counter; index++) {
+          let data = await fetch(consts.path, {
+              headers: {
+                  Accept: "application/json",
+                  Authorization: `Bearer ${consts.token}`
+              }, method: 'POST'
+          })
+          let url = await data.json()
+          console.log(url)
+          process.exit();
+          // const extractedData = await extractDesiredValues(url)
+          // console.log(extractedData)
+          // process.exit()
+          if (!!extractedData) {
+              response.send({ resp: extractedData })
+          }
+      }
+  })
 
   app.get("/createListFood", async function (req, response) {
     const counter = 190;
