@@ -14,6 +14,7 @@ module.exports = function (app) {
 
   app.get("/createListFoodFatSecret", async function (req, response) {
       let counter = 10;
+      let isFinished = false;
       for (let index = 0; index < counter; index++) {
           let data = await fetch(consts.path, {
               headers: {
@@ -22,13 +23,17 @@ module.exports = function (app) {
               }, method: 'POST'
           })
           let url = await data.json()
-          console.log(url)
-          process.exit();
-          // const extractedData = await extractDesiredValues(url)
-          // console.log(extractedData)
-          // process.exit()
-          if (!!extractedData) {
-              response.send({ resp: extractedData })
+          if(url.foods_search.results != undefined){
+            isFinished = await extractDesiredValuesFatSecret(url.foods_search.results.food,index,counter)
+            if(isFinished == true){
+              response.status(200).send('Término da lista de comidas')
+              process.exit()
+            } else {
+              continue;
+            }
+          } else {
+            response.status(200).send('Erro no token ou não possui resultados')
+            process.exit();
           }
       }
   })
@@ -82,6 +87,35 @@ module.exports = function (app) {
     let response = await searchData(req.query);
     res.status(200).send({ food: response });
   });
+
+  async function extractDesiredValuesFatSecret(data, idx, counter) {
+    if (!Array.isArray(data)) {
+      console.warn('Não é um array:', typeof data)
+      return false;
+    }
+    
+    const extractedData = data.map(item => ({
+      fdcId: item.food_id,
+      description: item.food_name,
+      protein: item.servings.serving[0].protein || 0,
+      totalLipid: item.servings.serving[0].fat || 0,
+      carbohydrate: item.servings.serving[0].carbohydrate || 0,
+      energy: item.servings.serving[0].calories || 0,
+      fiber: item.servings.serving[0].fiber || 0,
+      sugar: item.servings.serving[0].sugar || 0
+    }))
+
+    await extractedData.forEach(foodData => {
+      insertData(foodData);
+    });
+
+    if(counter - idx == 1){
+      return true;
+    } else {
+      return false;
+    }
+    
+  }
 
   async function extractDesiredValues(data) {
     // 204 Fat
