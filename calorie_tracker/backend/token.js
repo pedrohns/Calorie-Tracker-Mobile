@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: 'C:/Work/CalorieTracker/calorie_tracker/backend/.env'});
 const createConnection = require('./utils/sqlConnect')
 const token = require('./consts');
 const clientID = process.env.CLIENT_ID;
@@ -6,8 +6,6 @@ const clientSecret = process.env.CLIENT_SECRET;
 let sql = require('./utils/sql')
 var connectionBank = createConnection()
 var sqlDAO = new sql(connectionBank)
-
-
 var request = require("request");
 
 var options = {
@@ -26,17 +24,23 @@ var options = {
    json: true
 };
 
-request(options, function (error, response, body) {
+    
+request(options, async function (error, response, body) {
    if (error) throw new Error(error);
 
 
    if(response.statusCode == 200){
       token.setToken(body.access_token)
       console.log('Novo token\n'+token.token)
-      sqlDAO.update(`update ct_user set token = '${body.access_token}' where rowid = 'i'`)
-      process.exit();
+      try{
+         await sqlDAO.updateWithResponse(`update ct_user set token = '${body.access_token}', last_upd = now() where rowid = 'i'`);
+      } catch (e){
+         throw new Error(e);
+      } finally {
+         process.exit();
+      }
+      
+      
 
    }
-   
-//    process.env.ACCESS_TOKEN = body.access_token;
 });
