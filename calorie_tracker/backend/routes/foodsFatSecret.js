@@ -1,21 +1,29 @@
 const createConnection = require('../utils/sqlConnect')
 let sql = require('../utils/sql')
-const consts = require('../consts')
+var consts = require('../consts')
 var fetch = require('node-fetch')
 var connectionBank = createConnection()
 var calorieDao = new sql(connectionBank)
 require('dotenv').config()
 
+// var token = consts.getToken();
+consts.getToken().then(row => {
+    token = row.token;
+}).catch(error => {
+    console.error(error);
+})
+
 module.exports = function (app) {
 
     app.get("/createListFoodFatSecret", async function (req, response) {
+        let body = req.query.expression;
         let counter = 300;
         let isFinished = false;
         for (let index = 0; index < counter; index++) {
-            let data = await fetch(consts.path+`&page_number=${index}&search_expression=g`, {
+            let data = await fetch(consts.path + `&page_number=${index}&search_expression=${body}`, {
                 headers: {
                     Accept: "application/json",
-                    Authorization: `Bearer ${consts.token}`
+                    Authorization: `Bearer ${token}`
                 }, method: 'POST'
             })
             let url = await data.json()
@@ -28,7 +36,7 @@ module.exports = function (app) {
                 }
             } else {
                 response.status(200).send(`Erro no token ou não possui resultados mais resultados. ${index}`)
-                process.exit();
+                process.exit()
             }
         }
     })
@@ -80,7 +88,7 @@ module.exports = function (app) {
         carb = ${data.carbohydrate}, fat = ${data.totalLipid}, protein = ${data.protein},
         fiber = ${data.fiber}, sugar = ${data.sugar} `;
         // console.log(`insert into ct_food_details set ${string}`)
-        calorieDao.insert(`insert into ct_food_details set ${string} on duplicate key update food_id = '${foodId}';`);
+        calorieDao.insert(`insert into ct_food_details set ${string} on duplicate key update last_upd = now();`);
         // Last insert Portion
         insertPortion(foodId, data.amount, modifier, data.gram_weight)
     }
@@ -89,7 +97,7 @@ module.exports = function (app) {
         let portionId = await generateRowid();
         let stringPortion = `rowid = '${portionId}',created_by = 'i',last_upd_by = 'i',created = now(),last_upd = now(), 
     food_id = '${food_id}', portion = ${amount}, deleted_by = '', legend = '${modifier}', sizePortion = '${gram_weight}'`;
-        calorieDao.insert(`insert into ct_food_portion set ${stringPortion} on duplicate key update food_id = '${food_id}';`)
+        calorieDao.insert(`insert into ct_food_portion set ${stringPortion} on duplicate key update last_upd = now();`)
         // console.log(`insert into ct_food_portion set ${stringPortion}`)
     }
 
@@ -104,7 +112,7 @@ module.exports = function (app) {
         string = `rowid = '${foodId}',created_by = 'i',last_upd_by = 'i',created = now(),last_upd = now(), 
         code = '${id}', name = '${name}', deleted_by = ''`;
         // console.log(`insert into ct_food set ${string}`)
-        calorieDao.insert(`insert into ct_food set ${string} on duplicate key update code = '${id}';`);
+        calorieDao.insert(`insert into ct_food set ${string} on duplicate key update last_upd = now();`);
         return foodId;
 
     }

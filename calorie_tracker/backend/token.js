@@ -1,8 +1,12 @@
 require('dotenv').config();
+const createConnection = require('./utils/sqlConnect')
+const token = require('./consts');
 const clientID = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
-console.log(clientID)
-console.log(clientSecret)
+let sql = require('./utils/sql')
+var connectionBank = createConnection()
+var sqlDAO = new sql(connectionBank)
+
 
 var request = require("request");
 
@@ -25,6 +29,14 @@ var options = {
 request(options, function (error, response, body) {
    if (error) throw new Error(error);
 
-   console.log(body);
+
+   if(response.statusCode == 200){
+      token.setToken(body.access_token)
+      console.log('Novo token\n'+token.token)
+      sqlDAO.update(`update ct_user set token = '${body.access_token}' where rowid = 'i'`)
+      process.exit();
+
+   }
+   
 //    process.env.ACCESS_TOKEN = body.access_token;
 });

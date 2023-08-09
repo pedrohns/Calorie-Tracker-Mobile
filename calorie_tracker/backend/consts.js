@@ -1,10 +1,38 @@
-const bearer ='eyJhbGciOiJSUzI1NiIsImtpZCI6IjVGQUQ4RTE5MjMwOURFRUJCNzBCMzU5M0E2MDU3OUFEMUM5NjgzNDkiLCJ0eXAiOiJhdCtqd3QiLCJ4NXQiOiJYNjJPR1NNSjN1dTNDeldUcGdWNXJSeVdnMGsifQ.eyJuYmYiOjE2OTExNTU1ODYsImV4cCI6MTY5MTI0MTk4NiwiaXNzIjoiaHR0cHM6Ly9vYXV0aC5mYXRzZWNyZXQuY29tIiwiYXVkIjoicHJlbWllciIsImNsaWVudF9pZCI6ImFhOTFhY2E0YzUzMjQ2MTJhYTRhZGMwNWI0NTEzZmNkIiwic2NvcGUiOlsicHJlbWllciJdfQ.vGx3vzwzfHJFc7r147PMWur8y6n40JN_obMtK7lghyM97KwommZz9t509QyLM4DPDhylogrw7dSapHRB6ppni-Gvkxfl-hAbkmDIl1TsCZyCaolAX5OFJaHimyWhG_3fzoL5S70-ev9fxXE0ibhn1EnLHAKBbbuvwyLCIjWEs-Xz4hw61mKi20H4rCaLa-xuqUgeXQJbktJM-9YAfE52GGsTyh6ApltkyHm8EmVmuFHfKnB7IjkGBSwOvG_q1zRvja1g2AKL50IiLRvs4UWyNF5mYwYCwHX7Fll29JoTF__PAoow5wvsS2yv61BpDucXCKPFOkvvX2b7aj892Kw38w';
+const createConnection = require('./utils/sqlConnect')
+let sql = require('./utils/sql')
+var connectionBank = createConnection()
+var sqlDAO = new sql(connectionBank)
 
 const pathSearch = 'https://platform.fatsecret.com/rest/server.api?method=foods.search.v2&format=json&max_results=50&flag_default_serving=true';
 
 const obj = {
-    token:bearer,
-    path:pathSearch
+    token:'',
+    path:pathSearch,
+    setToken: function(bearer)  {
+        this.token = bearer
+    },
+    // Fazendo como async
+    getToken: async function() {
+        var results = await sqlDAO.select(`select token from ct_user where rowid = 'i' and deleted_by = ''`)
+        if(results.length > 0){
+            return results[0];
+        }
+    }
+
+    // Fazendo tratando a promise direto
+    // getToken: function(callback) {
+    //     sqlDAO.select(`select token from ct_user where rowid = 'i' and deleted_by = ''`)
+    //         .then(results => {
+    //             if (results.length > 0){
+    //                 callback(null, results[0]);
+    //             } else {
+    //                 callback(null, null);
+    //             }
+    //         })
+    //         .catch(error => {
+    //             callback(error);
+    //         });
+    // }
 }
 
 module.exports = obj;
