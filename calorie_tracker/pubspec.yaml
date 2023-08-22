@@ -43,6 +43,7 @@ dependencies:
   shimmer: ^2.0.0
   http: ^0.13.5
   crypto: ^3.0.3
+  dio: ^4.0.0
 
 
   # The following adds the Cupertino Icons font to your application.

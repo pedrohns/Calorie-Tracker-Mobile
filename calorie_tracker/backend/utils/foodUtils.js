@@ -36,9 +36,9 @@ const obj = {
         }
 
     },
-    searchData: async function (data) {
-        if (data.search) {
-            let result = await calorieDao.select(`select * from ct_food where lower(name) like lower('%${data.search}%')`)
+    searchData: async function (search) {
+        if (search) {
+            let result = await calorieDao.select(`select * from ct_food where lower(name) like lower('%${search}%')`)
             if (result.length > 0) {
                 return result;
             }

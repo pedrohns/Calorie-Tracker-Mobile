@@ -40,8 +40,14 @@ module.exports = function (app) {
 
 
     app.get("/sendListFoodFatSecret", async function (req, res) {
-        let response = await foods.searchData(req.query);
+        let response = await foods.searchData(req.query.search);
+        await console.log('Veio pra ca');
         await res.status(200).send({ food: response });
     });
+
+    app.get("/getTeste", async function (req,res){
+        await console.log('Veio pra ca');
+        await res.status(200).send('foi')
+    })
 
 }

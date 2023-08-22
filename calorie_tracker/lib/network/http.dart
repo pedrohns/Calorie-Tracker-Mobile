@@ -16,5 +16,8 @@ class Http {
 
   static String url(String url) =>
       // '$baseUrl$url?&api_key=$publicKey&hash=${_hash()}';
-      '$baseUrl$url?&api_key=$calorieTrackKey';
+      //'$baseUrl$url?&api_key=$calorieTrackKey';
+      // caso não utilizar emulador é essa string
+      // 'http://localhost:8080/$url';
+      'http://10.0.2.2:8080/$url';
 }
