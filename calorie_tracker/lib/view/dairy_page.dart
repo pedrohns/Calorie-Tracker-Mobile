@@ -86,7 +86,7 @@ class _DairyPageState extends State<DairyPage> {
 
   @override
   Widget build(BuildContext context) {
-    // double mediaQueryWidth = MediaQuery.of(context).size.width;
+    double mediaQueryWidth = MediaQuery.of(context).size.width;
     double mediaQueryHeight =
         MediaQuery.of(context).size.height - kBottomNavigationBarHeight;
     double totalConsumed =
@@ -95,7 +95,7 @@ class _DairyPageState extends State<DairyPage> {
       children: [
         Container(
           width: double.infinity,
-          height: mediaQueryHeight * 0.16,
+          height: mediaQueryHeight * 0.178,
           color: Theme.of(context).colorScheme.primary,
           padding: EdgeInsets.only(
             left: 20.0,
@@ -109,7 +109,7 @@ class _DairyPageState extends State<DairyPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [Text('Calorias restantes')],
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 15),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:calorie_tracker/components/api_research.dart';
 
 class SearchTextField extends StatefulWidget {
   @override
@@ -8,13 +7,11 @@ class SearchTextField extends StatefulWidget {
 
   final Function(String) onTextChanged;
   SearchTextField({required this.onTextChanged});
-  
 }
 
 class _SearchTextFieldState extends State<SearchTextField> {
   final TextEditingController _controller = TextEditingController();
   final BehaviorSubject<String> _subject = BehaviorSubject<String>();
-
 
   @override
   void initState() {
@@ -25,7 +22,6 @@ class _SearchTextFieldState extends State<SearchTextField> {
     _subject.debounceTime(Duration(milliseconds: 600)).listen((text) {
       // Aqui é onde você deseja processar a entrada do usuário após o debouncing
       print("SearchTextField -  Processando: $text");
-      // fetchData(text);
       widget.onTextChanged(text);
     });
   }

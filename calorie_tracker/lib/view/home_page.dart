@@ -8,6 +8,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double widthQuery = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -15,7 +16,8 @@ class HomePage extends StatelessWidget {
           Center(
             child: Container(
               height: 200,
-              width: 370,
+              // width: 370,
+              width: widthQuery * 1,
               margin: EdgeInsets.all(10.0),
               padding: EdgeInsets.all(16.0),
               decoration: BoxDecoration(

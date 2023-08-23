@@ -7,13 +7,15 @@ class WaterExeciceReview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double widthQuery = MediaQuery.of(context).size.width;
     final selectedBox = BoxesText(whatBox: whichBoxes);
     final time = whichBoxes == 'Water'
         ? '00:00'
         : '${selectedBox.getValues()['value2'].hour.toString()}:${selectedBox.getValues()['value2'].minute.toString().padLeft(2, '0')}';
     return Container(
       height: 150,
-      width: 175,
+      // width: 175,
+      width: widthQuery * 0.44,
       padding: EdgeInsets.symmetric(horizontal: 10.0),
       margin: EdgeInsets.all(10.0),
       decoration: BoxDecoration(

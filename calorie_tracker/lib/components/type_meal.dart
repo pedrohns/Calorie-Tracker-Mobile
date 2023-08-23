@@ -26,9 +26,9 @@ class TypeMeal extends StatelessWidget {
                 width: 1,
               )),
             ),
-            height: mediaQueryHeight * 0.065,
+            height: mediaQueryHeight * 0.07,
             child: Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding: const EdgeInsets.all(10.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -46,7 +46,7 @@ class TypeMeal extends StatelessWidget {
                 width: 1,
               )),
             ),
-            height: mediaQueryHeight * 0.065,
+            height: mediaQueryHeight * 0.076,
             child: Padding(
               padding: const EdgeInsets.only(
                   left: 4.0, right: 12.0, top: 6.0, bottom: 6.0),
