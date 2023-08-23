@@ -1,23 +1,25 @@
-import 'dart:convert';
-import 'package:crypto/crypto.dart';
+import 'package:dio/dio.dart';
 
-const String baseUrl = "https://api.nal.usda.gov";
-const String calorieTrackKey = "mJ95rJNrQsMQD5ue58RqIUrOS5a6MYGzBlVRKkVt";
-
-String _hash() {
-  const String input = '$calorieTrackKey';
-  return md5.convert(utf8.encode(input)).toString();
-}
+const String baseUrl = "http://10.0.2.2:8080/";
+var dio = Dio();
 
 class Http {
-  static const Map<String, String> headers = {
-    "Content-Type": "application/json"
-  };
 
-  static String url(String url) =>
-      // '$baseUrl$url?&api_key=$publicKey&hash=${_hash()}';
-      //'$baseUrl$url?&api_key=$calorieTrackKey';
-      // caso não utilizar emulador é essa string
-      // 'http://localhost:8080/$url';
-      'http://10.0.2.2:8080/$url';
+  static void configureDio() {
+    dio.options.connectTimeout = 1000 * 60 * 1;
+    dio.options.headers = {'Content-Type':'application/json'};
+  }
+
+  Future<dynamic> createConnection(String url) async {
+    try{
+      configureDio();
+      var response = await dio
+          .get('http://10.0.2.2:8080/$url');
+           print(response.data);
+          return response.data;
+    } catch (e){
+      //  print(e.toString());
+      return e.toString();
+    }
+  }
 }
