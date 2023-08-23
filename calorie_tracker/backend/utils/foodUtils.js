@@ -45,9 +45,6 @@ const obj = {
             return 'Não achou nada';
         }
         return 'Retornou errado';
-    },
-    searchOneFood: async function (){
-        
     }
 }
 

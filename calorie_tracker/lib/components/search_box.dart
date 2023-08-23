@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:calorie_tracker/components/api_research.dart';
+import 'package:calorie_tracker/components/search_text_field.dart';
 
 class SearchBox extends StatefulWidget {
   const SearchBox({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class _SearchBoxState extends State<SearchBox> {
   final TextEditingController _controller = TextEditingController();
 
   Future<String> fetchData(String search) async {
-    await ApiResearch(controller: 'teste').getFoodData(search);
+    await ApiResearch().getFoodData(search);
     return 'oi';
   }
 
@@ -29,40 +30,11 @@ class _SearchBoxState extends State<SearchBox> {
             Row(
               children: [
                 Expanded(
-                  child: TextField(
-                    onChanged: (text) {
-                      if (text.length > 3) {
-                        setState(() {
-                          inputText = text;
-                        });
-                        fetchData(text);
-                      }
+                  child: SearchTextField(
+                    onTextChanged: (text) {
+                      setState(() => inputText = text);
+                      fetchData(text);
                     },
-                    onSubmitted: (_) {
-                      setState(() {
-                        inputText = '';
-                      });
-                      _controller.clear();
-                    },
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(10.0),
-                      labelText: 'Pesquisar por alimento',
-                      labelStyle: Theme.of(context).textTheme.titleSmall!,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                        borderSide: BorderSide(
-                          color: Theme.of(context).colorScheme.secondary,
-                          width: 2.0,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                        borderSide: BorderSide(
-                          color: Theme.of(context).colorScheme.secondary,
-                          width: 2.0,
-                        ),
-                      ),
-                    ),
                   ),
                 ),
                 SizedBox(

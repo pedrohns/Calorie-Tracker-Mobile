@@ -33,7 +33,7 @@ module.exports = function (app) {
 
         } catch (e) {
 
-            console.log(e.toString())
+            console.log('createListFoodFatSecret - ' + e.toString())
             res.status(500).send(`Erro ao processar a solicitação: ${e.toString()}`);
         }
 
@@ -41,9 +41,15 @@ module.exports = function (app) {
 
 
     app.get("/sendListFoodFatSecret", async function (req, res) {
-        let response = await foods.searchData(req.query.search);
-        await console.log('Veio pra ca');
-        await res.status(200).send({ food: response });
+        console.log('SendListFoodFatSecret - Fired');
+        try {
+            let response = await foods.searchData(req.query.search);
+            await res.status(200).send({ food: response });
+        } catch (e) {
+            console.log('SendListFoodFatSecret - Erro na requisição: '+e.toString())
+            res.status(500).send('Erro na requisição, tente novamente mais tarde.')
+        }
+
     });
 
     app.get("/getFoodAPI", async function (req, res) {
@@ -69,7 +75,7 @@ module.exports = function (app) {
             }
             if (arrayToSend.length > 0) {
                 let response = await foods.searchData(arrayToSend[0]);
-                await console.log(`Veio procurar a comida. ${arrayToSend[0]}`);
+                await console.log(`SendListFoodFatSecret - Veio procurar a comida. ${arrayToSend[0]}`);
                 await res.status(200).send({ food: response });
             }
         } catch (e) {
