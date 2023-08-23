@@ -3,11 +3,15 @@ let sql = require('./utils/sql')
 var connectionBank = createConnection()
 var sqlDAO = new sql(connectionBank)
 
-const pathSearch = 'https://platform.fatsecret.com/rest/server.api?method=foods.search.v2&format=json&max_results=50&flag_default_serving=true';
+const pathSearch = 'https://platform.fatsecret.com/rest/server.api?method=foods.search.v2&format=json&flag_default_serving=true';
+const pathOneFood = 'https://platform.fatsecret.com/rest/server.api?method=food.get.v2&format=json';
+const pathAutoComplete = 'https://platform.fatsecret.com/rest/server.api?method=foods.autocomplete.v2&format=json&max_results=2';
 
 const obj = {
     token:'',
     path:pathSearch,
+    pathFood:pathOneFood,
+    pathAutoComplete: pathAutoComplete,
     setToken: function(bearer)  {
         this.token = bearer
     },

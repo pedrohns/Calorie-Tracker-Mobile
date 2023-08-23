@@ -9,9 +9,9 @@ class ApiResearch {
   var http = Http();
 
   Future<void> getFoodData(String search) async {
-    final response = await http.createConnection('sendListFoodFatSecret?search=$search');
-    // if (response.food == 'Não achou nada'){
-
-    // }
+    var response = await http.createConnection('sendListFoodFatSecret?search=$search');
+    if (response.food == 'Não achou nada'){
+      response = await http.createConnection('getFoodAPI?search=$search');
+    }
   }
 }
