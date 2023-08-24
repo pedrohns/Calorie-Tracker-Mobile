@@ -38,7 +38,11 @@ const obj = {
     },
     searchData: async function (search) {
         if (search) {
-            let result = await calorieDao.select(`select * from ct_food where lower(name) like lower('%${search}%')`)
+            let result = await calorieDao.select(`select  f.code, f.name, fd.quantity_cal, fd.carb, fd.fat, fd.protein, fd.fiber, fd.sugar,
+            fp.portion, fp.sizePortion, fp.legend  from ct_food f
+            inner join ct_food_details fd on fd.food_id = f.rowid and fd.deleted_by = ''
+            inner join ct_food_portion fp on fp.food_id = f.rowid and fp.deleted_by = ''
+             where lower(f.name) like lower('%${search}%') and f.deleted_by = ''`)
             if (result.length > 0) {
                 return result;
             }

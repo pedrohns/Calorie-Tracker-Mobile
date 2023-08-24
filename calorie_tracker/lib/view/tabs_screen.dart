@@ -54,6 +54,7 @@ class _TabsScreenState extends State<TabsScreen> {
         padding: EdgeInsets.only(bottom: kBottomNavigationBarHeight),
         color: Color.fromRGBO(18, 19, 29, 0.859),
         child: _screens![_selectedScreenIndex]['screen'] as Widget,
+        height: double.infinity,
       ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectScreen,

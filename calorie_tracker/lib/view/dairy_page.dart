@@ -95,7 +95,7 @@ class _DairyPageState extends State<DairyPage> {
       children: [
         Container(
           width: double.infinity,
-          height: mediaQueryHeight * 0.178,
+          height: mediaQueryHeight * 0.16,
           color: Theme.of(context).colorScheme.primary,
           padding: EdgeInsets.only(
             left: 20.0,
@@ -109,7 +109,7 @@ class _DairyPageState extends State<DairyPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [Text('Calorias restantes')],
               ),
-              SizedBox(height: 15),
+              SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
