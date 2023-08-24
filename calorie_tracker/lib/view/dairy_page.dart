@@ -86,7 +86,7 @@ class _DairyPageState extends State<DairyPage> {
 
   @override
   Widget build(BuildContext context) {
-    double mediaQueryWidth = MediaQuery.of(context).size.width;
+    // double mediaQueryWidth = MediaQuery.of(context).size.width;
     double mediaQueryHeight =
         MediaQuery.of(context).size.height - kBottomNavigationBarHeight;
     double totalConsumed =

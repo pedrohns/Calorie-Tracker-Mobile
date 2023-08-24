@@ -1,9 +1,15 @@
 import 'package:calorie_tracker/components/search_box.dart';
 import 'package:flutter/material.dart';
 
-class FoodPage extends StatelessWidget {
+class FoodPage extends StatefulWidget {
   const FoodPage({key});
 
+  @override
+  State<FoodPage> createState() => _FoodPageState();
+}
+
+class _FoodPageState extends State<FoodPage> {
+  bool canLoad = false;
   @override
   Widget build(BuildContext context) {
     final String teste = ModalRoute.of(context)!.settings.arguments as String;
@@ -14,7 +20,21 @@ class FoodPage extends StatelessWidget {
       ),
       body: Container(
         // color: Color.fromRGBO(139, 74, 145, 0.859),
-        child: SearchBox(),
+        // child: SearchBox(),
+        color: Colors.blue,
+        child: Column(
+          children: [
+            SearchBox(
+              loadingData: (isReady) {
+                setState(() => canLoad = isReady);
+              },
+            ),
+            SizedBox(height: 20),
+            Text('Teste'),
+            //Agora é necessário colocar os dados aqui, chamando o widget criado ShowFood, mas
+            //tem que puxar os dados do provider
+          ],
+        ),
       ),
     );
   }
