@@ -46,7 +46,7 @@ module.exports = function (app) {
             let response = await foods.searchData(req.query.search);
             await res.status(200).send({ food: response });
         } catch (e) {
-            console.log('SendListFoodFatSecret - Erro na requisição: '+e.toString())
+            console.log('SendListFoodFatSecret - Erro na requisição: ' + e.toString())
             res.status(500).send('Erro na requisição, tente novamente mais tarde.')
         }
 
@@ -64,8 +64,12 @@ module.exports = function (app) {
             let response = await data.json();
             let arrayResponse = response.suggestions.suggestion;
             let arrayToSend = [];
+            console.log(`getFoodAPI - Primeiro registro arrayResponse - ${arrayResponse[0]}`)
+
             for (let i = 0; i < arrayResponse.length; i++) {
                 let realResponse = await createFoodInDB({ isFinished: false, body: arrayResponse[i], path: consts.path })
+                await console.log(`getFoodAPI - retorno do createFoodInDB: ${realResponse}`)
+
                 if (realResponse.toString().includes("Erro") === true) {
                     res.status(500).send('Houve um erro na busca dos dados.')
                     break;
@@ -74,8 +78,12 @@ module.exports = function (app) {
                 }
             }
             if (arrayToSend.length > 0) {
-                let response = await foods.searchData(arrayToSend[0]);
                 await console.log(`getFoodAPI - Veio procurar a comida. ${arrayToSend[0]}`);
+
+                let response = await foods.searchData(arrayToSend[0]);
+
+                await console.log(`getFoodAPI - Resposta da busca: ${response} `);
+
                 await res.status(200).send({ food: response });
             }
         } catch (e) {
@@ -84,7 +92,7 @@ module.exports = function (app) {
 
     });
 
-    async function createFoodInDB({ isFinished, index = 0, body = 'teste', counter = 0, maxResults = 2, path = consts.path } = {}) {
+    async function createFoodInDB({ isFinished, index = 0, body = 'teste', counter = 0, maxResults = 5, path = consts.path } = {}) {
         let data = await fetch(path + `&page_number=${index}&search_expression=${body}&max_results=${maxResults}`, {
             headers: {
                 Accept: "application/json",

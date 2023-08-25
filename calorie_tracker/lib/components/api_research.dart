@@ -17,10 +17,11 @@ class ApiResearch {
       response =
           await http.createConnection('sendListFoodFatSecret?search=$search');
 
-      print('ApiResearch - Tamanho do array - ${response.length}');
+      print(
+          'ApiResearch - search:${search} - Tamanho do array - ${response.length}');
 
       if (response == 'Não achou nada') {
-        print('ApiResearch - Não achou');
+        print('ApiResearch - search:${search} - Não achou');
 
         response = await http.createConnection('getFoodAPI?search=$search');
       }

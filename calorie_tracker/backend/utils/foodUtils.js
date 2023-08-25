@@ -25,9 +25,10 @@ const obj = {
             gram_weight: item.servings.serving[0].metric_serving_amount || 0
         }))
 
-        await extractedData.forEach(foodData => {
-            insertData(foodData);
-        });
+        // Deixando aqui a resposta, era que o método forEach, não é assíncrono, ou seja, ele mandava a resposta, sem esperar
+        for (const foodData of extractedData) {
+            await insertData(foodData);
+        }
 
         if (counter - idx == 1) {
             return true;
@@ -45,9 +46,10 @@ const obj = {
              where lower(f.name) like lower('%${search}%') and f.deleted_by = ''`)
             if (result.length > 0) {
                 return result;
+            } else {
+                return 'Não achou nada';
             }
-            return 'Não achou nada';
-        }
+        } 
         return 'Retornou errado';
     }
 }
@@ -88,6 +90,7 @@ async function firstInsertFood(id, name) {
     code = '${id}', name = '${name}', deleted_by = ''`;
     // console.log(`insert into ct_food set ${string}`)
     calorieDao.insert(`insert into ct_food set ${string} on duplicate key update last_upd = now();`);
+    // console.log(`insert into ct_food set ${string} on duplicate key update last_upd = now();`);
     return foodId;
 
 }
