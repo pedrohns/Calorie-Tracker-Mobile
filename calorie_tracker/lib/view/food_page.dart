@@ -1,4 +1,5 @@
 import 'package:calorie_tracker/components/search_box.dart';
+import 'package:calorie_tracker/components/show_food.dart';
 import 'package:flutter/material.dart';
 
 class FoodPage extends StatefulWidget {
@@ -21,16 +22,20 @@ class _FoodPageState extends State<FoodPage> {
       body: Container(
         // color: Color.fromRGBO(139, 74, 145, 0.859),
         // child: SearchBox(),
-        color: Colors.blue,
         child: Column(
           children: [
             SearchBox(
               loadingData: (isReady) {
+                print('FoodPage - Callback LoadingData - ${isReady}');
                 setState(() => canLoad = isReady);
               },
             ),
             SizedBox(height: 20),
-            Text('Teste'),
+            canLoad
+                ? Expanded(
+                    child: ShowFood(),
+                  )
+                : Text('Teste'),
             //Agora é necessário colocar os dados aqui, chamando o widget criado ShowFood, mas
             //tem que puxar os dados do provider
           ],

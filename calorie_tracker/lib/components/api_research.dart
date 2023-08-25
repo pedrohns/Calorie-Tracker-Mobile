@@ -16,14 +16,18 @@ class ApiResearch {
     try {
       response =
           await http.createConnection('sendListFoodFatSecret?search=$search');
+
       print('ApiResearch - Tamanho do array - ${response.length}');
+
       if (response == 'Não achou nada') {
         print('ApiResearch - Não achou');
+
         response = await http.createConnection('getFoodAPI?search=$search');
       }
     } catch (e) {
       print('ApiResearch - erro - ${e.toString()}');
     } finally {
+      print('ApiResearch - Response Type: ${response.runtimeType}');
       if (response.runtimeType != String) {
         wipeData();
         handlingFoodsData(response);
@@ -37,8 +41,11 @@ class ApiResearch {
   dynamic selectedController(String type) => controller[type];
 
   void handlingFoodsData(List<dynamic> data) {
+    print('ApiResearch - handlingFoodsData fired');
+
     final controllerFood = selectedController('Foods') as FoodList;
-    final controllerFoodDetails = selectedController('FoodsDetails') as FoodDetailsList;
+    final controllerFoodDetails =
+        selectedController('FoodsDetails') as FoodDetailsList;
     data.forEach((dado) {
       controllerFood.addFood(
         Food(
@@ -46,7 +53,7 @@ class ApiResearch {
           name: dado['name'],
           legend: dado['legend'],
           portion: dado['portion'],
-          sizePortion: dado['sizePortion'],
+          sizePortion: verifySizePortion(dado['sizePortion']),
         ),
       );
       controllerFoodDetails.addFoodDetails(
@@ -58,13 +65,25 @@ class ApiResearch {
             id: dado['detailRowid'],
             foodId: dado['foodRowid']),
       );
-      // print('HandlingFoodsData - ${dado['foodRowid']}');
     });
+    // print('ApiResearch - handlingFoodsData - ${controllerFood.foods.first.id}');
   }
-  void wipeData(){
+
+  void wipeData() {
     final controllerFood = selectedController('Foods') as FoodList;
-    final controllerFoodDetails = selectedController('FoodsDetails') as FoodDetailsList;
+    final controllerFoodDetails =
+        selectedController('FoodsDetails') as FoodDetailsList;
     controllerFood.cleanFood();
     controllerFoodDetails.cleanFoodDetails();
+    print('ApiResearch - WipeData - ${controllerFood.foods.length}');
+  }
+
+  double verifySizePortion(dynamic sizePortion) {
+    if (sizePortion is int) {
+      sizePortion = (sizePortion as int).toDouble();
+    } else if (sizePortion is double) {
+      sizePortion = sizePortion as double;
+    }
+    return sizePortion;
   }
 }

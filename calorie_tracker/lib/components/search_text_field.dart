@@ -35,6 +35,13 @@ class _SearchTextFieldState extends State<SearchTextField> {
         _subject.add(text);
       },
       decoration: InputDecoration(
+        suffixIcon: _controller.text.isNotEmpty
+            ? IconButton(
+                onPressed: () => setState(() => _controller.clear()),
+                icon: Icon(Icons.close),
+                color: Theme.of(context).colorScheme.secondary,
+              )
+            : null,
         contentPadding: EdgeInsets.all(10.0),
         labelText: 'Pesquisar por alimento',
         labelStyle: Theme.of(context).textTheme.titleSmall!,

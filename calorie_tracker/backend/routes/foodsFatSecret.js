@@ -75,7 +75,7 @@ module.exports = function (app) {
             }
             if (arrayToSend.length > 0) {
                 let response = await foods.searchData(arrayToSend[0]);
-                await console.log(`SendListFoodFatSecret - Veio procurar a comida. ${arrayToSend[0]}`);
+                await console.log(`getFoodAPI - Veio procurar a comida. ${arrayToSend[0]}`);
                 await res.status(200).send({ food: response });
             }
         } catch (e) {
