@@ -11,7 +11,7 @@ const obj = {
             return false;
         }
 
-        const extractedData = data.map(item => ({
+        const extractedData = data.map(item => ({  
             fdcId: item.food_id,
             description: item.food_name,
             protein: item.servings.serving[0].protein || 0,
@@ -27,6 +27,7 @@ const obj = {
 
         // Deixando aqui a resposta, era que o método forEach, não é assíncrono, ou seja, ele mandava a resposta, sem esperar
         for (const foodData of extractedData) {
+            // console.log('extractDesiredValuesFatSecret - description: '+foodData.modifier)
             await insertData(foodData);
         }
 
@@ -56,8 +57,8 @@ const obj = {
 
 
 async function insertData(data) {
-    let description = data.description.replace(/'/g, '')
-    let modifier = data.modifier.replace(/'/g, '')
+    let description = (data.description != undefined) ? data.description.replace(/'/g, '') : 'sem nome'
+    let modifier = (data.modifier != undefined) ? data.modifier.replace(/'/g, '') : 'sem grama'
     let foodId = await firstInsertFood(data.fdcId, description);
     // Second insert Food Details
     string = `rowid = '${await generateRowid()}',created_by = 'i',last_upd_by = 'i',created = now(),

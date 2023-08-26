@@ -51,7 +51,35 @@ module.exports = function (app) {
         }
 
     });
+    //Primeiro Middleware, sem o autoComplete
+    app.get("/getFoodAPI", async function (req, res, next) {
+        let body = req.query.search;
+        try {
+            let realResponse = await createFoodInDB({ isFinished: false, body: body, path: consts.path, counter: 2, index: 1, isSingle: true })
+            console.log(`getFoodAPI1 - retorno do createFoodInDB: ${realResponse}`)
+            if (realResponse.toString().includes("Erro") === true) {
+                res.status(500).send('Houve um erro na busca dos dados.')
+                return;
+            } else {
+                console.log(`getFoodAPI1 - Veio procurar a comida. ${body}`);
 
+                let response = await foods.searchData(body);
+
+                console.log(`getFoodAPI1 - Resposta da busca: ${response} `);
+                if (response == 'Não achou nada') {
+                    next()
+                } else {
+                    await res.status(200).send({ food: response });
+                    return;
+                }
+            }
+        } catch (e) {
+            res.status(500).send(`Erro na requisição, tente novamente. ${e.toString()}`)
+        }
+
+    })
+
+    //Segundo Middleware
     app.get("/getFoodAPI", async function (req, res) {
         let body = req.query.search;
         try {
@@ -64,11 +92,11 @@ module.exports = function (app) {
             let response = await data.json();
             let arrayResponse = response.suggestions.suggestion;
             let arrayToSend = [];
-            console.log(`getFoodAPI - Primeiro registro arrayResponse - ${arrayResponse[0]}`)
+            console.log(`getFoodAPI2 - Primeiro registro arrayResponse - ${arrayResponse[0]}`)
 
             for (let i = 0; i < arrayResponse.length; i++) {
                 let realResponse = await createFoodInDB({ isFinished: false, body: arrayResponse[i], path: consts.path })
-                await console.log(`getFoodAPI - retorno do createFoodInDB: ${realResponse}`)
+                await console.log(`getFoodAPI2 - retorno do createFoodInDB: ${realResponse}`)
 
                 if (realResponse.toString().includes("Erro") === true) {
                     res.status(500).send('Houve um erro na busca dos dados.')
@@ -78,11 +106,11 @@ module.exports = function (app) {
                 }
             }
             if (arrayToSend.length > 0) {
-                await console.log(`getFoodAPI - Veio procurar a comida. ${arrayToSend[0]}`);
+                await console.log(`getFoodAPI2 - Veio procurar a comida. ${arrayToSend[0]}`);
 
                 let response = await foods.searchData(arrayToSend[0]);
 
-                await console.log(`getFoodAPI - Resposta da busca: ${response} `);
+                await console.log(`getFoodAPI2 - Resposta da busca: ${response} `);
 
                 await res.status(200).send({ food: response });
             }
@@ -92,8 +120,10 @@ module.exports = function (app) {
 
     });
 
-    async function createFoodInDB({ isFinished, index = 0, body = 'teste', counter = 0, maxResults = 5, path = consts.path } = {}) {
-        let data = await fetch(path + `&page_number=${index}&search_expression=${body}&max_results=${maxResults}`, {
+    async function createFoodInDB({ isFinished, index = 0, body = 'teste', counter = 0, maxResults = 15, path = consts.path, isSingle = false } = {}) {
+        // console.log('createFoodInDB ' + path + `&page_number=${index}&search_expression=${body}&max_results=${maxResults}`);
+        let pageNumber = (isSingle) ? 0 : index;
+        let data = await fetch(path + `&page_number=${pageNumber}&search_expression=${body}&max_results=${maxResults}`, {
             headers: {
                 Accept: "application/json",
                 Authorization: `Bearer ${token}`
