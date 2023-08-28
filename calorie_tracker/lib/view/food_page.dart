@@ -13,18 +13,35 @@ class FoodPage extends StatefulWidget {
 }
 
 class _FoodPageState extends State<FoodPage> {
-  bool canLoad = false;
+  // bool canLoad = false;
   int counter = 0;
 
-  Widget showTypeMeals(isSearching) {
-    if (canLoad == true && isSearching == false) {
+  Widget showData(controller) {
+    print(
+        'canLoad: ${controller.canLoad}, isSearching: ${controller.isSearching}');
+    if (controller.canLoad == true && controller.isSearching == false) {
       return ShowFood(key: ValueKey<int>(counter));
-    } else if (canLoad == false && isSearching == true) {
+    } else if (controller.canLoad == false && controller.isSearching == true) {
       return Loading(whichScreen: 'ShowData');
     } else {
       return Center(child: Text(''));
     }
   }
+
+  // Widget showData(isSearching) {
+  //   return FutureBuilder<String>(
+  //     future: fetchData(),
+  //     builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+  //       if (snapshot.connectionState == ConnectionState.waiting) {
+  //         return CircularProgressIndicator(); // exibe um spinner de carregamento.
+  //       } else if (snapshot.hasError) {
+  //         return Text('Erro: ${snapshot.error}');
+  //       } else {
+  //         return Text('Dados: ${snapshot.data}');
+  //       }
+  //     },
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -45,17 +62,16 @@ class _FoodPageState extends State<FoodPage> {
                 });
               },
               loadingData: (isReady) {
-                setState(() => canLoad = isReady);
+                setState(() => controller.setLoad(isReady));
                 controller.cancelSearch();
               },
               destroySearch: (num) {
-                ;
                 setState(() => counter = num);
               },
             ),
             SizedBox(height: 20),
             Expanded(
-              child: showTypeMeals(controller.isSearching),
+              child: showData(controller),
             ),
           ],
         ),

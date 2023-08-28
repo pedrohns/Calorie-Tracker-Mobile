@@ -8,6 +8,9 @@ abstract class _ManageState with Store {
   @observable
   bool isSearching = false;
 
+  @observable
+  bool canLoad = false;
+
   @action
   void createSearch() {
     // print('Como veio primeiro: $isSearching');
@@ -17,5 +20,11 @@ abstract class _ManageState with Store {
   @action
   void cancelSearch() {
     isSearching = false;
+  }
+
+  @action
+  void setLoad(bool isReady) {
+    // print('Como veio primeiro: $isSearching');
+    canLoad = isReady;
   }
 }

@@ -49,7 +49,6 @@ class _SearchBoxState extends State<SearchBox> {
     final availableHeight = MediaQuery.of(context).size.height;
     return Container(
       height: availableHeight * 0.08,
-      // color: Colors.red,
       child: Padding(
         padding: EdgeInsets.only(top: 8, left: 39, right: 34),
         child: Column(
@@ -59,26 +58,12 @@ class _SearchBoxState extends State<SearchBox> {
                 Expanded(
                   child: SearchTextField(
                     onTextChanged: (text) {
-                      // setState(() => inputText = text);
                       fetchData(text);
                     },
                   ),
                 ),
-                // SizedBox(
-                //   width: 5,
-                // ),
-                // CircleAvatar(
-                //   backgroundColor: Theme.of(context).colorScheme.secondary,
-                //   child: IconButton(
-                //       icon: Icon(Icons.cancel),
-                //       // color: Theme.of(context).colorScheme.secondary,
-                //       onPressed: () {}),
-                // ),
               ],
             ),
-            // Center(
-            //   child: Text(inputText),
-            // ),
           ],
         ),
       ),

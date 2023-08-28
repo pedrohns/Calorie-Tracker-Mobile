@@ -25,6 +25,22 @@ mixin _$ManageState on _ManageState, Store {
     });
   }
 
+  late final _$canLoadAtom =
+      Atom(name: '_ManageState.canLoad', context: context);
+
+  @override
+  bool get canLoad {
+    _$canLoadAtom.reportRead();
+    return super.canLoad;
+  }
+
+  @override
+  set canLoad(bool value) {
+    _$canLoadAtom.reportWrite(value, super.canLoad, () {
+      super.canLoad = value;
+    });
+  }
+
   late final _$_ManageStateActionController =
       ActionController(name: '_ManageState', context: context);
 
@@ -51,9 +67,21 @@ mixin _$ManageState on _ManageState, Store {
   }
 
   @override
+  void setLoad(bool isReady) {
+    final _$actionInfo = _$_ManageStateActionController.startAction(
+        name: '_ManageState.setLoad');
+    try {
+      return super.setLoad(isReady);
+    } finally {
+      _$_ManageStateActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-isSearching: ${isSearching}
+isSearching: ${isSearching},
+canLoad: ${canLoad}
     ''';
   }
 }
