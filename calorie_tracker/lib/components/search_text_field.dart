@@ -33,10 +33,14 @@ class _SearchTextFieldState extends State<SearchTextField> {
     final controller = Provider.of<ManageState>(context);
     return TextField(
       controller: _controller,
+      // Adicione o texto atual ao _subject cada vez que o usuário digitar.
       onChanged: (text) {
-        // Adicione o texto atual ao _subject cada vez que o usuário digitar.
+        if (text == '') {
+          controller.setLoad(false);
+        }
         _subject.add(text);
       },
+
       decoration: InputDecoration(
         suffixIcon: _controller.text.isNotEmpty
             ? IconButton(

@@ -3,6 +3,7 @@ import 'package:calorie_tracker/network/http_overrides.dart';
 import 'package:calorie_tracker/store/food_details_list.dart';
 import 'package:calorie_tracker/store/food_list.dart';
 import 'package:calorie_tracker/store/manage_state.dart';
+import 'package:calorie_tracker/store/meal_list.dart';
 import 'package:calorie_tracker/utils/app_routes.dart';
 import 'package:calorie_tracker/view/food_page.dart';
 import 'package:calorie_tracker/view/tabs_screen.dart';
@@ -28,6 +29,9 @@ class MyAppState extends State<MyApp> {
         Provider<ManageState>(
           create: (_) => ManageState(),
         ),
+        Provider<MealList>(
+          create: (_) => MealList(),
+        )
       ],
       child: MaterialApp(
           title: 'Flutter Demo',

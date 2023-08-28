@@ -1,15 +1,17 @@
 class Meal {
-  final List<dynamic>? breakfast;
-  final List<dynamic>? lunch;
-  final List<dynamic>? dinner;
-  final List<dynamic>? snack;
+  final bool breakfast;
+  final bool lunch;
+  final bool dinner;
+  final bool snack;
   final String id;
+  final String foodId;
 
   Meal({
     required this.id,
-    this.breakfast,
-    this.snack,
-    this.lunch,
-    this.dinner,
+    this.breakfast = false,
+    this.snack = false,
+    this.lunch = false,
+    this.dinner = false,
+    required this.foodId,
   });
 }

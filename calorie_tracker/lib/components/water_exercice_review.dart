@@ -33,6 +33,7 @@ class WaterExeciceReview extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleSmall!,
               ),
               IconButton(
+                color: Theme.of(context).colorScheme.secondary,
                 onPressed: () {},
                 icon: Icon(Icons.add),
               ),

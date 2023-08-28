@@ -17,31 +17,16 @@ class _FoodPageState extends State<FoodPage> {
   int counter = 0;
 
   Widget showData(controller) {
-    print(
-        'canLoad: ${controller.canLoad}, isSearching: ${controller.isSearching}');
+    // print(
+    //     'canLoad: ${controller.canLoad}, isSearching: ${controller.isSearching}');
     if (controller.canLoad == true && controller.isSearching == false) {
       return ShowFood(key: ValueKey<int>(counter));
     } else if (controller.canLoad == false && controller.isSearching == true) {
       return Loading(whichScreen: 'ShowData');
     } else {
-      return Center(child: Text(''));
+      return Center(child: Text('Não possui dados!'));
     }
   }
-
-  // Widget showData(isSearching) {
-  //   return FutureBuilder<String>(
-  //     future: fetchData(),
-  //     builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-  //       if (snapshot.connectionState == ConnectionState.waiting) {
-  //         return CircularProgressIndicator(); // exibe um spinner de carregamento.
-  //       } else if (snapshot.hasError) {
-  //         return Text('Erro: ${snapshot.error}');
-  //       } else {
-  //         return Text('Dados: ${snapshot.data}');
-  //       }
-  //     },
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
