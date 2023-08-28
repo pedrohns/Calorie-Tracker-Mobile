@@ -7,7 +7,14 @@ import 'package:provider/provider.dart';
 
 class SearchBox extends StatefulWidget {
   final Function(bool) loadingData;
-  const SearchBox({Key? key, required this.loadingData}) : super(key: key);
+  final Function(int) destroySearch;
+  final Function() rebuild;
+  const SearchBox(
+      {Key? key,
+      required this.loadingData,
+      required this.destroySearch,
+      required this.rebuild})
+      : super(key: key);
 
   @override
   State<SearchBox> createState() => _SearchBoxState();
@@ -16,6 +23,7 @@ class SearchBox extends StatefulWidget {
 class _SearchBoxState extends State<SearchBox> {
   // String inputText = '';
   // final TextEditingController _controller = TextEditingController();
+  int counter = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +35,15 @@ class _SearchBoxState extends State<SearchBox> {
       'FoodsDetails': controllerFoodsDetails,
     };
     Future<void> fetchData(String search) async {
+      widget.rebuild();
       bool isReady =
           await ApiResearch(controller: generalController).getFoodData(search);
       print('SearchBox - isReady: ${isReady}');
-      widget.loadingData(isReady);
-      // setState(() {
-      //   canLoadData = isReady;
-      // });
-      // return isReady;
+      setState(() {
+        counter++;
+      });
+      await widget.loadingData(isReady);
+      await widget.destroySearch(counter);
     }
 
     final availableHeight = MediaQuery.of(context).size.height;

@@ -7,10 +7,11 @@ class Loading extends StatelessWidget {
     required this.whichScreen,
   });
 
-  Widget getSkeleton(String screen, double mediaQuery) {
+  Widget getSkeleton(
+      String screen, double mediaQuery, double mediaQueryHeight) {
     if (screen == 'ShowData') {
       // double containerWidth = 220.0;
-      double containerHeight = 51.0;
+      // double containerHeight = 51.0;
       return ListView.builder(
         padding: EdgeInsets.symmetric(
           vertical: 10,
@@ -19,29 +20,28 @@ class Loading extends StatelessWidget {
         itemCount: 15,
         itemBuilder: (BuildContext context, int index) {
           return Shimmer.fromColors(
-            baseColor: Colors.grey,
-            highlightColor: Colors.white,
+            baseColor: const Color.fromARGB(255, 83, 82, 82),
+            highlightColor: Color.fromARGB(97, 255, 255, 255),
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+              margin: EdgeInsets.all(10.0),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Container(
-                    width: mediaQuery * 0.15,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.blue,
-                    ),
-                  ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        width: mediaQuery * 0.75,
-                        height: containerHeight,
-                        color: Colors.grey,
+                        width: mediaQuery * 0.90,
+                        height: mediaQuery * 0.15,
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          border: Border.all(
+                            color: Colors.red,
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
                       ),
                     ],
                   ),
@@ -103,6 +103,7 @@ class Loading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double mediaQuery = MediaQuery.of(context).size.width;
-    return getSkeleton(whichScreen, mediaQuery);
+    double mediaQueryHeight = MediaQuery.of(context).size.height;
+    return getSkeleton(whichScreen, mediaQuery, mediaQueryHeight);
   }
 }
