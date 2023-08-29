@@ -4,6 +4,7 @@ import 'package:calorie_tracker/store/manage_state.dart';
 import 'package:flutter/material.dart';
 import 'package:calorie_tracker/components/loading.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class FoodPage extends StatefulWidget {
   const FoodPage({key});
@@ -13,12 +14,11 @@ class FoodPage extends StatefulWidget {
 }
 
 class _FoodPageState extends State<FoodPage> {
-  // bool canLoad = false;
   int counter = 0;
 
-  Widget showData(controller) {
-    // print(
-    //     'canLoad: ${controller.canLoad}, isSearching: ${controller.isSearching}');
+  Widget showData(ManageState controller) {
+    print(
+        'canLoad: ${controller.canLoad}, isSearching: ${controller.isSearching}');
     if (controller.canLoad == true && controller.isSearching == false) {
       return ShowFood(key: ValueKey<int>(counter));
     } else if (controller.canLoad == false && controller.isSearching == true) {
@@ -30,7 +30,7 @@ class _FoodPageState extends State<FoodPage> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Provider.of<ManageState>(context);
+    ManageState controller = Provider.of<ManageState>(context, listen: true);
     final String teste = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
       backgroundColor: Color.fromRGBO(50, 51, 60, 0.763),
@@ -41,22 +41,15 @@ class _FoodPageState extends State<FoodPage> {
         child: Column(
           children: [
             SearchBox(
-              rebuild: () {
-                setState(() {
-                  controller.createSearch();
-                });
-              },
-              loadingData: (isReady) {
-                setState(() => controller.setLoad(isReady));
-                controller.cancelSearch();
-              },
               destroySearch: (num) {
                 setState(() => counter = num);
               },
             ),
             SizedBox(height: 20),
-            Expanded(
-              child: showData(controller),
+            Observer(
+              builder: (_) => Expanded(
+                child: showData(controller),
+              ),
             ),
           ],
         ),

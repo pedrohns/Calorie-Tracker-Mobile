@@ -35,18 +35,21 @@ class _SearchTextFieldState extends State<SearchTextField> {
       controller: _controller,
       // Adicione o texto atual ao _subject cada vez que o usuário digitar.
       onChanged: (text) {
-        if (text == '') {
-          controller.setLoad(false);
-        }
-        _subject.add(text);
+        setState(() {
+          if (text == '') {
+            controller.setLoad(false);
+            controller.cancelSearch();
+          }
+          _subject.add(text);
+        });
       },
-
       decoration: InputDecoration(
         suffixIcon: _controller.text.isNotEmpty
             ? IconButton(
                 onPressed: () => setState(() {
                   _controller.clear();
                   controller.setLoad(false);
+                  controller.cancelSearch();
                 }),
                 icon: Icon(Icons.close),
                 color: Theme.of(context).colorScheme.secondary,

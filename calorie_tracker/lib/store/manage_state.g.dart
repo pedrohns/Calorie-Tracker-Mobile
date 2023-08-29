@@ -41,6 +41,16 @@ mixin _$ManageState on _ManageState, Store {
     });
   }
 
+  late final _$fetchDataAsyncAction =
+      AsyncAction('_ManageState.fetchData', context: context);
+
+  @override
+  Future<void> fetchData(
+      String search, Map<String, dynamic> generalController) {
+    return _$fetchDataAsyncAction
+        .run(() => super.fetchData(search, generalController));
+  }
+
   late final _$_ManageStateActionController =
       ActionController(name: '_ManageState', context: context);
 

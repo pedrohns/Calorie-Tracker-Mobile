@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+import 'package:calorie_tracker/components/api_research.dart';
 
 part 'manage_state.g.dart';
 
@@ -13,18 +14,33 @@ abstract class _ManageState with Store {
 
   @action
   void createSearch() {
-    // print('Como veio primeiro: $isSearching');
     isSearching = true;
+    print('createSearch: isSearching: $isSearching');
   }
 
   @action
   void cancelSearch() {
     isSearching = false;
+    print('cancelSearch: isSearching $isSearching');
   }
 
   @action
   void setLoad(bool isReady) {
-    // print('Como veio primeiro: $isSearching');
     canLoad = isReady;
+    print('setLoad: canLoad: $canLoad');
   }
+
+  @action
+  Future<void> fetchData(String search, Map<String, dynamic> generalController) async {
+    createSearch();
+    try{
+      await ApiResearch(controller: generalController).getFoodData(search);
+      setLoad(true);
+    } catch (e) {
+      print('Deu erro na requisição. ${e.toString()}');
+    } finally {
+      cancelSearch();
+    }
+  }
+
 }

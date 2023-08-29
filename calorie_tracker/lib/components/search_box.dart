@@ -1,19 +1,15 @@
 import 'package:calorie_tracker/store/food_details_list.dart';
 import 'package:calorie_tracker/store/food_list.dart';
 import 'package:flutter/material.dart';
-import 'package:calorie_tracker/components/api_research.dart';
+// import 'package:calorie_tracker/components/api_research.dart';
 import 'package:calorie_tracker/components/search_text_field.dart';
 import 'package:provider/provider.dart';
+import 'package:calorie_tracker/store/manage_state.dart';
 
 class SearchBox extends StatefulWidget {
-  final Function(bool) loadingData;
   final Function(int) destroySearch;
-  final Function() rebuild;
   const SearchBox(
-      {Key? key,
-      required this.loadingData,
-      required this.destroySearch,
-      required this.rebuild})
+      {Key? key,required this.destroySearch,})
       : super(key: key);
 
   @override
@@ -21,8 +17,6 @@ class SearchBox extends StatefulWidget {
 }
 
 class _SearchBoxState extends State<SearchBox> {
-  // String inputText = '';
-  // final TextEditingController _controller = TextEditingController();
   int counter = 0;
 
   @override
@@ -30,21 +24,11 @@ class _SearchBoxState extends State<SearchBox> {
     final controllerFoods = Provider.of<FoodList>(context, listen: false);
     final controllerFoodsDetails =
         Provider.of<FoodDetailsList>(context, listen: false);
+    ManageState states = Provider.of<ManageState>(context);
     Map<String, dynamic> generalController = {
       'Foods': controllerFoods,
       'FoodsDetails': controllerFoodsDetails,
     };
-    Future<void> fetchData(String search) async {
-      widget.rebuild();
-      bool isReady =
-          await ApiResearch(controller: generalController).getFoodData(search);
-      print('SearchBox - isReady: ${isReady}');
-      setState(() {
-        counter++;
-      });
-      await widget.loadingData(isReady);
-      await widget.destroySearch(counter);
-    }
 
     final availableHeight = MediaQuery.of(context).size.height;
     return Container(
@@ -58,7 +42,7 @@ class _SearchBoxState extends State<SearchBox> {
                 Expanded(
                   child: SearchTextField(
                     onTextChanged: (text) {
-                      fetchData(text);
+                      states.fetchData(text, generalController);
                     },
                   ),
                 ),

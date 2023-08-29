@@ -32,7 +32,7 @@ class Loading extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        width: mediaQuery * 0.90,
+                        width: mediaQuery * 0.88,
                         height: mediaQuery * 0.15,
                         decoration: BoxDecoration(
                           color: Colors.grey,
