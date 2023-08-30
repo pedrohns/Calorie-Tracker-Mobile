@@ -1,13 +1,14 @@
 import 'package:calorie_tracker/model/food_details.dart';
 import 'package:calorie_tracker/store/food_details_list.dart';
+import 'package:calorie_tracker/store/manage_state.dart';
 import 'package:calorie_tracker/store/meal_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:calorie_tracker/store/food_list.dart';
 import 'package:calorie_tracker/model/food.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-
-import '../model/meal.dart';
+import '../../model/meal.dart';
+import 'package:calorie_tracker/utils/generate_rowid.dart';
 
 class ShowFood extends StatelessWidget {
   const ShowFood({Key? key}) : super(key: key);
@@ -19,12 +20,41 @@ class ShowFood extends StatelessWidget {
         '${foodDetail[idx].quantityCal} cal, ${data.sizePortion} ${data.legend}');
   }
 
+  void addingMeal(MealList meals, String foodID, ManageState states) {
+    bool isBreakfast = false;
+    bool isLunch = false;
+    bool isSnack = false;
+    bool isDinner = false;
+    DateTime now = DateTime.now();
+    DateTime today = DateTime(now.year, now.month, now.day);
+    if (states.mealTitle == 'Café da Manhã') {
+      isBreakfast = true;
+    } else if (states.mealTitle == 'Almoço') {
+      isLunch = true;
+    } else if (states.mealTitle == 'Lanche') {
+      isSnack = true;
+    } else {
+      isDinner = true;
+    }
+    // meals.cleanMeal();
+    meals.addMeal(Meal(
+      id: GenerateRowid().generate(),
+      breakfast: isBreakfast,
+      lunch: isLunch,
+      snack: isSnack,
+      dinner: isDinner,
+      foodId: foodID,
+      day: today,
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     List<Food> foods = Provider.of<FoodList>(context, listen: false).foods;
     List<FoodDetails> foodsDetails =
         Provider.of<FoodDetailsList>(context, listen: false).foodsDetails;
-    final meals = Provider.of<MealList>(context, listen: false);
+    MealList meals = Provider.of<MealList>(context, listen: false);
+    ManageState states = Provider.of<ManageState>(context, listen: false);
 
     return AnimationLimiter(
       child: ListView.builder(
@@ -50,9 +80,7 @@ class ShowFood extends StatelessWidget {
                       trailing: IconButton(
                         onPressed: () {
                           print('ShowFood - Clique do onPressed');
-                          Meal auxMeal =
-                              Meal(id: 'q', breakfast: true, foodId: 'iasd');
-                          meals.addMeal(auxMeal);
+                          addingMeal(meals, foods[idx].id, states);
                         },
                         // color: Theme.of(context).colorScheme.secondary,
                         color: Colors.white,

@@ -1,7 +1,8 @@
+import 'package:calorie_tracker/components/DairyPage/show_foods_meal.dart';
 import 'package:flutter/material.dart';
 import 'package:calorie_tracker/data/dummy_data.dart';
 import 'package:calorie_tracker/model/user.dart';
-import 'package:calorie_tracker/components/type_meal.dart';
+import 'package:calorie_tracker/components/DairyPage/type_meal.dart';
 
 class DairyPage extends StatefulWidget {
   const DairyPage({Key? key}) : super(key: key);
@@ -73,6 +74,9 @@ class _DairyPageState extends State<DairyPage> {
       String title = element['title'];
       bool hasButton = element['hasButton'];
       String secondTitle = element['secondTitle'];
+      if (hasButton) {
+        widgets.add(ShowFoodsMeal());
+      }
       widgets.add(TypeMeal(
         title: title,
         hasButton: hasButton,

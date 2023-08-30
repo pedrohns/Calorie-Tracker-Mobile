@@ -15,6 +15,34 @@ mixin _$MealList on _MealList, Store {
   List<Meal> get meals => (_$mealsComputed ??=
           Computed<List<Meal>>(() => super.meals, name: '_MealList.meals'))
       .value;
+  Computed<List<Meal>>? _$breakfastMealsComputed;
+
+  @override
+  List<Meal> get breakfastMeals => (_$breakfastMealsComputed ??=
+          Computed<List<Meal>>(() => super.breakfastMeals,
+              name: '_MealList.breakfastMeals'))
+      .value;
+  Computed<List<Meal>>? _$lunchMealsComputed;
+
+  @override
+  List<Meal> get lunchMeals =>
+      (_$lunchMealsComputed ??= Computed<List<Meal>>(() => super.lunchMeals,
+              name: '_MealList.lunchMeals'))
+          .value;
+  Computed<List<Meal>>? _$snackMealsComputed;
+
+  @override
+  List<Meal> get snackMeals =>
+      (_$snackMealsComputed ??= Computed<List<Meal>>(() => super.snackMeals,
+              name: '_MealList.snackMeals'))
+          .value;
+  Computed<List<Meal>>? _$dinnerMealsComputed;
+
+  @override
+  List<Meal> get dinnerMeals =>
+      (_$dinnerMealsComputed ??= Computed<List<Meal>>(() => super.dinnerMeals,
+              name: '_MealList.dinnerMeals'))
+          .value;
 
   late final _$_mealsAtom = Atom(name: '_MealList._meals', context: context);
 
@@ -59,7 +87,11 @@ mixin _$MealList on _MealList, Store {
   @override
   String toString() {
     return '''
-meals: ${meals}
+meals: ${meals},
+breakfastMeals: ${breakfastMeals},
+lunchMeals: ${lunchMeals},
+snackMeals: ${snackMeals},
+dinnerMeals: ${dinnerMeals}
     ''';
   }
 }

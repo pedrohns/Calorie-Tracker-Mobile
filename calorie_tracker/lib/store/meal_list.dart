@@ -12,6 +12,19 @@ abstract class _MealList with Store {
   @computed
   List<Meal> get meals => _meals.toList();
 
+  @computed
+  List<Meal> get breakfastMeals =>
+      meals.where((meal) => meal.breakfast).toList();
+
+  @computed
+  List<Meal> get lunchMeals => meals.where((meal) => meal.lunch).toList();
+
+  @computed
+  List<Meal> get snackMeals => meals.where((meal) => meal.snack).toList();
+
+  @computed
+  List<Meal> get dinnerMeals => meals.where((meal) => meal.dinner).toList();
+
   @action
   void addMeal(Meal data) {
     _meals.add(data);

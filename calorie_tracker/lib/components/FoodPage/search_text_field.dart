@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
-import '../store/manage_state.dart';
+import '../../store/manage_state.dart';
 
 class SearchTextField extends StatefulWidget {
   @override
@@ -38,7 +38,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
         setState(() {
           if (text == '') {
             controller.setLoad(false);
-            controller.cancelSearch();
+            controller.setSearch(false);
           }
           _subject.add(text);
         });
@@ -49,7 +49,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
                 onPressed: () => setState(() {
                   _controller.clear();
                   controller.setLoad(false);
-                  controller.cancelSearch();
+                  controller.setSearch(false);
                 }),
                 icon: Icon(Icons.close),
                 color: Theme.of(context).colorScheme.secondary,

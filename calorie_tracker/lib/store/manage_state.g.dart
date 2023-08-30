@@ -41,6 +41,22 @@ mixin _$ManageState on _ManageState, Store {
     });
   }
 
+  late final _$mealTitleAtom =
+      Atom(name: '_ManageState.mealTitle', context: context);
+
+  @override
+  String get mealTitle {
+    _$mealTitleAtom.reportRead();
+    return super.mealTitle;
+  }
+
+  @override
+  set mealTitle(String value) {
+    _$mealTitleAtom.reportWrite(value, super.mealTitle, () {
+      super.mealTitle = value;
+    });
+  }
+
   late final _$fetchDataAsyncAction =
       AsyncAction('_ManageState.fetchData', context: context);
 
@@ -55,22 +71,11 @@ mixin _$ManageState on _ManageState, Store {
       ActionController(name: '_ManageState', context: context);
 
   @override
-  void createSearch() {
+  void setSearch(bool isReady) {
     final _$actionInfo = _$_ManageStateActionController.startAction(
-        name: '_ManageState.createSearch');
+        name: '_ManageState.setSearch');
     try {
-      return super.createSearch();
-    } finally {
-      _$_ManageStateActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void cancelSearch() {
-    final _$actionInfo = _$_ManageStateActionController.startAction(
-        name: '_ManageState.cancelSearch');
-    try {
-      return super.cancelSearch();
+      return super.setSearch(isReady);
     } finally {
       _$_ManageStateActionController.endAction(_$actionInfo);
     }
@@ -88,10 +93,22 @@ mixin _$ManageState on _ManageState, Store {
   }
 
   @override
+  void whichMeal(String which) {
+    final _$actionInfo = _$_ManageStateActionController.startAction(
+        name: '_ManageState.whichMeal');
+    try {
+      return super.whichMeal(which);
+    } finally {
+      _$_ManageStateActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 isSearching: ${isSearching},
-canLoad: ${canLoad}
+canLoad: ${canLoad},
+mealTitle: ${mealTitle}
     ''';
   }
 }

@@ -1,5 +1,5 @@
-import 'package:calorie_tracker/components/search_box.dart';
-import 'package:calorie_tracker/components/show_food.dart';
+import 'package:calorie_tracker/components/FoodPage/search_box.dart';
+import 'package:calorie_tracker/components/FoodPage/show_food.dart';
 import 'package:calorie_tracker/store/manage_state.dart';
 import 'package:flutter/material.dart';
 import 'package:calorie_tracker/components/loading.dart';

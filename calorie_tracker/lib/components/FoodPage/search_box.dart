@@ -2,15 +2,16 @@ import 'package:calorie_tracker/store/food_details_list.dart';
 import 'package:calorie_tracker/store/food_list.dart';
 import 'package:flutter/material.dart';
 // import 'package:calorie_tracker/components/api_research.dart';
-import 'package:calorie_tracker/components/search_text_field.dart';
+import 'package:calorie_tracker/components/FoodPage/search_text_field.dart';
 import 'package:provider/provider.dart';
 import 'package:calorie_tracker/store/manage_state.dart';
 
 class SearchBox extends StatefulWidget {
   final Function(int) destroySearch;
-  const SearchBox(
-      {Key? key,required this.destroySearch,})
-      : super(key: key);
+  const SearchBox({
+    Key? key,
+    required this.destroySearch,
+  }) : super(key: key);
 
   @override
   State<SearchBox> createState() => _SearchBoxState();

@@ -1,5 +1,8 @@
+import 'package:calorie_tracker/store/manage_state.dart';
+import 'package:calorie_tracker/store/meal_list.dart';
 import 'package:flutter/material.dart';
 import 'package:calorie_tracker/utils/app_routes.dart';
+import 'package:provider/provider.dart';
 
 class TypeMeal extends StatelessWidget {
   final String title;
@@ -15,6 +18,7 @@ class TypeMeal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // double mediaQueryWidth = MediaQuery.of(context).size.width;
+    ManageState states = Provider.of<ManageState>(context, listen: false);
     double mediaQueryHeight =
         MediaQuery.of(context).size.height - kBottomNavigationBarHeight;
     return hasButton == false
@@ -57,6 +61,7 @@ class TypeMeal extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context)
                           .pushNamed(AppRoutes.food, arguments: secondTitle);
+                      states.whichMeal(secondTitle);
                     },
                     child: Text(
                       title,

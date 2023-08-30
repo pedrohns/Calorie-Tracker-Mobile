@@ -1,6 +1,6 @@
-import 'package:calorie_tracker/components/calorie_review.dart';
-import 'package:calorie_tracker/components/water_exercice_review.dart';
-import 'package:calorie_tracker/components/weight_review.dart';
+import 'package:calorie_tracker/components/HomePage/calorie_review.dart';
+import 'package:calorie_tracker/components/HomePage/water_exercice_review.dart';
+import 'package:calorie_tracker/components/HomePage/weight_review.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {

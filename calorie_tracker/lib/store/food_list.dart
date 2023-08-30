@@ -12,6 +12,10 @@ abstract class _FoodList with Store {
   @computed
   List<Food> get foods => _foods.toList();
 
+  Food? getFoodById(String id) {
+    return foods.firstWhere((food) => food.id == id);
+  }
+
   @action
   void addFood(Food data) {
     _foods.add(data);
@@ -19,7 +23,7 @@ abstract class _FoodList with Store {
   }
 
   @action
-  void cleanFood(){
+  void cleanFood() {
     _foods.clear();
   }
 }
