@@ -33,6 +33,22 @@ mixin _$FoodDetailsList on _FoodDetailsList, Store {
     });
   }
 
+  late final _$searchResultsAtom =
+      Atom(name: '_FoodDetailsList.searchResults', context: context);
+
+  @override
+  ObservableList<FoodDetails> get searchResults {
+    _$searchResultsAtom.reportRead();
+    return super.searchResults;
+  }
+
+  @override
+  set searchResults(ObservableList<FoodDetails> value) {
+    _$searchResultsAtom.reportWrite(value, super.searchResults, () {
+      super.searchResults = value;
+    });
+  }
+
   late final _$_FoodDetailsListActionController =
       ActionController(name: '_FoodDetailsList', context: context);
 
@@ -59,8 +75,31 @@ mixin _$FoodDetailsList on _FoodDetailsList, Store {
   }
 
   @override
+  void addSearch(FoodDetails data) {
+    final _$actionInfo = _$_FoodDetailsListActionController.startAction(
+        name: '_FoodDetailsList.addSearch');
+    try {
+      return super.addSearch(data);
+    } finally {
+      _$_FoodDetailsListActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  FoodDetails getDetailById(String id) {
+    final _$actionInfo = _$_FoodDetailsListActionController.startAction(
+        name: '_FoodDetailsList.getDetailById');
+    try {
+      return super.getDetailById(id);
+    } finally {
+      _$_FoodDetailsListActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
+searchResults: ${searchResults},
 foodsDetails: ${foodsDetails}
     ''';
   }

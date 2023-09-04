@@ -9,11 +9,15 @@ abstract class _FoodList with Store {
   @observable
   ObservableList<Food> _foods = ObservableList<Food>();
 
+  @observable
+  ObservableList<Food> searchResults = ObservableList<Food>();
+
   @computed
   List<Food> get foods => _foods.toList();
 
   Food? getFoodById(String id) {
-    return foods.firstWhere((food) => food.id == id);
+    return foods.firstWhere((food) => food.id == id,
+        orElse: () => Food(id: 'teste', name: 'Travis Scott'));
   }
 
   @action
@@ -23,7 +27,13 @@ abstract class _FoodList with Store {
   }
 
   @action
+  void addSearch(Food data) {
+    searchResults.add(data);
+    //print(foods.length);
+  }
+
+  @action
   void cleanFood() {
-    _foods.clear();
+    searchResults.clear();
   }
 }

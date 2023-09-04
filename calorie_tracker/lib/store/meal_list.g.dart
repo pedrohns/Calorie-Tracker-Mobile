@@ -43,6 +43,13 @@ mixin _$MealList on _MealList, Store {
       (_$dinnerMealsComputed ??= Computed<List<Meal>>(() => super.dinnerMeals,
               name: '_MealList.dinnerMeals'))
           .value;
+  Computed<List<Meal>>? _$currentMealsComputed;
+
+  @override
+  List<Meal> get currentMeals =>
+      (_$currentMealsComputed ??= Computed<List<Meal>>(() => super.currentMeals,
+              name: '_MealList.currentMeals'))
+          .value;
 
   late final _$_mealsAtom = Atom(name: '_MealList._meals', context: context);
 
@@ -59,6 +66,22 @@ mixin _$MealList on _MealList, Store {
     });
   }
 
+  late final _$currentMealTitleAtom =
+      Atom(name: '_MealList.currentMealTitle', context: context);
+
+  @override
+  String get currentMealTitle {
+    _$currentMealTitleAtom.reportRead();
+    return super.currentMealTitle;
+  }
+
+  @override
+  set currentMealTitle(String value) {
+    _$currentMealTitleAtom.reportWrite(value, super.currentMealTitle, () {
+      super.currentMealTitle = value;
+    });
+  }
+
   late final _$_MealListActionController =
       ActionController(name: '_MealList', context: context);
 
@@ -68,6 +91,17 @@ mixin _$MealList on _MealList, Store {
         _$_MealListActionController.startAction(name: '_MealList.addMeal');
     try {
       return super.addMeal(data);
+    } finally {
+      _$_MealListActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setCurrentMealTitle(String title) {
+    final _$actionInfo = _$_MealListActionController.startAction(
+        name: '_MealList.setCurrentMealTitle');
+    try {
+      return super.setCurrentMealTitle(title);
     } finally {
       _$_MealListActionController.endAction(_$actionInfo);
     }
@@ -87,11 +121,13 @@ mixin _$MealList on _MealList, Store {
   @override
   String toString() {
     return '''
+currentMealTitle: ${currentMealTitle},
 meals: ${meals},
 breakfastMeals: ${breakfastMeals},
 lunchMeals: ${lunchMeals},
 snackMeals: ${snackMeals},
-dinnerMeals: ${dinnerMeals}
+dinnerMeals: ${dinnerMeals},
+currentMeals: ${currentMeals}
     ''';
   }
 }

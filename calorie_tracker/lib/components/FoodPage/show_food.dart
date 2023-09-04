@@ -50,9 +50,10 @@ class ShowFood extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Food> foods = Provider.of<FoodList>(context, listen: false).foods;
+    List<Food> foods =
+        Provider.of<FoodList>(context, listen: false).searchResults;
     List<FoodDetails> foodsDetails =
-        Provider.of<FoodDetailsList>(context, listen: false).foodsDetails;
+        Provider.of<FoodDetailsList>(context, listen: false).searchResults;
     MealList meals = Provider.of<MealList>(context, listen: false);
     ManageState states = Provider.of<ManageState>(context, listen: false);
 

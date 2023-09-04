@@ -168,10 +168,8 @@ class _DairyPageState extends State<DairyPage> {
         ),
         // Fim da primeira parte
         Expanded(
-          child: Observer(
-            builder: (_) => ListView(
-              children: showTypeMeals(titles),
-            ),
+          child: ListView(
+            children: showTypeMeals(titles),
           ),
         ),
       ],

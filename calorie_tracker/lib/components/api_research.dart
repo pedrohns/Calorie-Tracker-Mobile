@@ -48,6 +48,15 @@ class ApiResearch {
     final controllerFoodDetails =
         selectedController('FoodsDetails') as FoodDetailsList;
     data.forEach((dado) {
+      controllerFood.addSearch(
+        Food(
+          id: dado['foodRowid'],
+          name: dado['name'],
+          legend: dado['legend'],
+          portion: dado['portion'],
+          sizePortion: verifySizePortion(dado['sizePortion']),
+        ),
+      );
       controllerFood.addFood(
         Food(
           id: dado['foodRowid'],
@@ -56,6 +65,15 @@ class ApiResearch {
           portion: dado['portion'],
           sizePortion: verifySizePortion(dado['sizePortion']),
         ),
+      );
+      controllerFoodDetails.addSearch(
+        FoodDetails(
+            quantityCal: dado['quantity_cal'],
+            carb: dado['carb'],
+            fat: dado['fat'],
+            protein: dado['protein'],
+            id: dado['detailRowid'],
+            foodId: dado['foodRowid']),
       );
       controllerFoodDetails.addFoodDetails(
         FoodDetails(

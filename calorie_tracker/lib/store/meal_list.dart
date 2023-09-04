@@ -9,6 +9,9 @@ abstract class _MealList with Store {
   @observable
   ObservableList<Meal> _meals = ObservableList<Meal>();
 
+  @observable
+  String currentMealTitle = '';
+
   @computed
   List<Meal> get meals => _meals.toList();
 
@@ -28,7 +31,32 @@ abstract class _MealList with Store {
   @action
   void addMeal(Meal data) {
     _meals.add(data);
-    // print(_meals.length);
+    print(_meals.length);
+    _meals.forEach((meal) {
+      print('addMeal: ' + meal.foodId);
+    });
+  }
+
+  void showData() {
+    print(_meals.length);
+  }
+
+  @action
+  void setCurrentMealTitle(String title) {
+    currentMealTitle = title;
+  }
+
+  @computed
+  List<Meal> get currentMeals {
+    if (currentMealTitle == 'Café da Manhã') {
+      return breakfastMeals;
+    } else if (currentMealTitle == 'Almoço') {
+      return lunchMeals;
+    } else if (currentMealTitle == 'Lanche') {
+      return snackMeals;
+    } else {
+      return dinnerMeals;
+    }
   }
 
   @action

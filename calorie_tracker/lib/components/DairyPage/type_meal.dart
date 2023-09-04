@@ -19,6 +19,7 @@ class TypeMeal extends StatelessWidget {
   Widget build(BuildContext context) {
     // double mediaQueryWidth = MediaQuery.of(context).size.width;
     ManageState states = Provider.of<ManageState>(context, listen: false);
+    MealList meals = Provider.of<MealList>(context, listen: false);
     double mediaQueryHeight =
         MediaQuery.of(context).size.height - kBottomNavigationBarHeight;
     return hasButton == false
@@ -62,6 +63,7 @@ class TypeMeal extends StatelessWidget {
                       Navigator.of(context)
                           .pushNamed(AppRoutes.food, arguments: secondTitle);
                       states.whichMeal(secondTitle);
+                      meals.setCurrentMealTitle(secondTitle);
                     },
                     child: Text(
                       title,
