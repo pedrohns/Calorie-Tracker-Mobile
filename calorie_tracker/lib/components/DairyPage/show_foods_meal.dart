@@ -31,16 +31,30 @@ class ShowFoodsMeal extends StatelessWidget {
     MealList meals = Provider.of<MealList>(context, listen: false);
     ManageState states = Provider.of<ManageState>(context, listen: false);
     List<Meal> realMeal = whichMeal(meals, states);
-    return Expanded(
-      child: ListView.builder(
-        itemCount: realMeal.length,
-        itemBuilder: (ctx, idx) {
-          Food auxFood = foods.getFoodById(realMeal[idx].foodId)!;
-          return ListTile(
-            title: Text(auxFood.name),
-          );
-        },
-      ),
+    // return ListView.builder(
+    //   itemCount: realMeal.length,
+    //   itemBuilder: (ctx, idx) {
+    //     Food auxFood = foods.getFoodById(realMeal[idx].foodId)!;
+    //     print('ShowFoodsMeal - ${auxFood.name}');
+    //     return ListTile(
+    //       title: Text(
+    //         auxFood.name,
+    //         style: Theme.of(context).textTheme.bodySmall,
+    //       ),
+    //     );
+    //   },
+    // );
+
+    return Column(
+      children: realMeal.map((meal) {
+        Food auxFood = foods.getFoodById(meal.foodId)!;
+        return ListTile(
+          title: Text(
+            auxFood.name,
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+        );
+      }).toList(),
     );
   }
 }

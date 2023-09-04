@@ -36,7 +36,7 @@ class ShowFood extends StatelessWidget {
     } else {
       isDinner = true;
     }
-    // meals.cleanMeal();
+    //  meals.cleanMeal();
     meals.addMeal(Meal(
       id: GenerateRowid().generate(),
       breakfast: isBreakfast,

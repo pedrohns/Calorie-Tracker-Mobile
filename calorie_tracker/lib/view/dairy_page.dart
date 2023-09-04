@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:calorie_tracker/data/dummy_data.dart';
 import 'package:calorie_tracker/model/user.dart';
 import 'package:calorie_tracker/components/DairyPage/type_meal.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class DairyPage extends StatefulWidget {
   const DairyPage({Key? key}) : super(key: key);
@@ -68,7 +69,7 @@ class _DairyPageState extends State<DairyPage> {
   //   );
   // }
 
-  Widget showTypeMeals(List<Map<String, dynamic>> titles) {
+  List<Widget> showTypeMeals(List<Map<String, dynamic>> titles) {
     List<Widget> widgets = [];
     for (Map<String, dynamic> element in titles) {
       String title = element['title'];
@@ -83,14 +84,14 @@ class _DairyPageState extends State<DairyPage> {
         secondTitle: secondTitle,
       ));
     }
-    return Column(
-      children: widgets,
-    );
+    // return Column(
+    //   children: widgets,
+    // );
+    return widgets;
   }
 
   @override
   Widget build(BuildContext context) {
-    // double mediaQueryWidth = MediaQuery.of(context).size.width;
     double mediaQueryHeight =
         MediaQuery.of(context).size.height - kBottomNavigationBarHeight;
     double totalConsumed =
@@ -167,8 +168,10 @@ class _DairyPageState extends State<DairyPage> {
         ),
         // Fim da primeira parte
         Expanded(
-          child: SingleChildScrollView(
-            child: showTypeMeals(titles),
+          child: Observer(
+            builder: (_) => ListView(
+              children: showTypeMeals(titles),
+            ),
           ),
         ),
       ],

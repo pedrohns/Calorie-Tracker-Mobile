@@ -59,7 +59,7 @@ module.exports = function (app) {
         let body = req.query.search;
         try {
             let realResponse = await createFoodInDB({ isFinished: false, body: body, path: consts.path, counter: 2, index: 1, isSingle: true })
-            console.log(`getFoodAPI1 - retorno do createFoodInDB: ${realResponse}`)
+            // console.log(`getFoodAPI1 - retorno do createFoodInDB: ${realResponse}`)
             if (realResponse.toString().includes("Erro") === true) {
                 res.status(500).send('Houve um erro na busca dos dados.')
                 return;
@@ -133,6 +133,7 @@ module.exports = function (app) {
             }, method: 'POST'
         })
         let url = await data.json()
+        // console.log('CreateFoodInDB - return url: '+JSON.stringify(url));
         if (url.foods_search.results != undefined) {
             isFinished = await foods.extractDesiredValuesFatSecret(url.foods_search.results.food, index, counter)
             if (isFinished == true) {
