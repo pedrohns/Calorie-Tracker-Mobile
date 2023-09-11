@@ -18,7 +18,7 @@ abstract class _FoodDetailsList with Store {
   @action
   void addFoodDetails(FoodDetails data) {
     _foodDetails.add(data);
-    //print(foods.length);
+    // print(foods.length);
   }
 
   @action

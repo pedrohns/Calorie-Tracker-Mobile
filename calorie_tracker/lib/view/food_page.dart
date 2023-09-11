@@ -31,11 +31,11 @@ class _FoodPageState extends State<FoodPage> {
   @override
   Widget build(BuildContext context) {
     ManageState controller = Provider.of<ManageState>(context, listen: true);
-    final String teste = ModalRoute.of(context)!.settings.arguments as String;
+    final String titulo = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
       backgroundColor: Color.fromRGBO(50, 51, 60, 0.763),
       appBar: AppBar(
-        title: Text(teste),
+        title: Text(titulo),
       ),
       body: Container(
         child: Column(

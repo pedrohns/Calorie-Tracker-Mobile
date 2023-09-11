@@ -21,7 +21,7 @@ class _DairyPageState extends State<DairyPage> {
       'secondTitle': 'Café da Manhã',
     },
     {
-      'title': 'ADICIONAR ALIMENTO',
+      'title': 'Adicionar Alimento',
       'hasButton': true,
       'secondTitle': 'Café da Manhã',
     },
@@ -31,7 +31,7 @@ class _DairyPageState extends State<DairyPage> {
       'secondTitle': 'Almoço',
     },
     {
-      'title': 'ADICIONAR ALIMENTO',
+      'title': 'Adicionar Alimento',
       'hasButton': true,
       'secondTitle': 'Almoço',
     },
@@ -41,7 +41,7 @@ class _DairyPageState extends State<DairyPage> {
       'secondTitle': 'Lanche',
     },
     {
-      'title': 'ADICIONAR ALIMENTO',
+      'title': 'Adicionar Alimento',
       'hasButton': true,
       'secondTitle': 'Lanche',
     },
@@ -51,7 +51,7 @@ class _DairyPageState extends State<DairyPage> {
       'secondTitle': 'Jantar',
     },
     {
-      'title': 'ADICIONAR ALIMENTO',
+      'title': 'Adicionar Alimento',
       'hasButton': true,
       'secondTitle': 'Jantar',
     },
@@ -76,7 +76,7 @@ class _DairyPageState extends State<DairyPage> {
       bool hasButton = element['hasButton'];
       String secondTitle = element['secondTitle'];
       if (hasButton) {
-        widgets.add(ShowFoodsMeal());
+        widgets.add(ShowFoodsMeal(title: element['secondTitle']));
       }
       widgets.add(TypeMeal(
         title: title,

@@ -66,6 +66,22 @@ mixin _$MealList on _MealList, Store {
     });
   }
 
+  late final _$_mealCaloriesAtom =
+      Atom(name: '_MealList._mealCalories', context: context);
+
+  @override
+  ObservableList<MealCalorie> get _mealCalories {
+    _$_mealCaloriesAtom.reportRead();
+    return super._mealCalories;
+  }
+
+  @override
+  set _mealCalories(ObservableList<MealCalorie> value) {
+    _$_mealCaloriesAtom.reportWrite(value, super._mealCalories, () {
+      super._mealCalories = value;
+    });
+  }
+
   late final _$currentMealTitleAtom =
       Atom(name: '_MealList.currentMealTitle', context: context);
 
@@ -82,6 +98,22 @@ mixin _$MealList on _MealList, Store {
     });
   }
 
+  late final _$consumedCalorieAtom =
+      Atom(name: '_MealList.consumedCalorie', context: context);
+
+  @override
+  int get consumedCalorie {
+    _$consumedCalorieAtom.reportRead();
+    return super.consumedCalorie;
+  }
+
+  @override
+  set consumedCalorie(int value) {
+    _$consumedCalorieAtom.reportWrite(value, super.consumedCalorie, () {
+      super.consumedCalorie = value;
+    });
+  }
+
   late final _$_MealListActionController =
       ActionController(name: '_MealList', context: context);
 
@@ -91,6 +123,17 @@ mixin _$MealList on _MealList, Store {
         _$_MealListActionController.startAction(name: '_MealList.addMeal');
     try {
       return super.addMeal(data);
+    } finally {
+      _$_MealListActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void totalConsumed(List<Meal> meals, FoodDetailsList foodsDetails) {
+    final _$actionInfo = _$_MealListActionController.startAction(
+        name: '_MealList.totalConsumed');
+    try {
+      return super.totalConsumed(meals, foodsDetails);
     } finally {
       _$_MealListActionController.endAction(_$actionInfo);
     }
@@ -122,6 +165,7 @@ mixin _$MealList on _MealList, Store {
   String toString() {
     return '''
 currentMealTitle: ${currentMealTitle},
+consumedCalorie: ${consumedCalorie},
 meals: ${meals},
 breakfastMeals: ${breakfastMeals},
 lunchMeals: ${lunchMeals},

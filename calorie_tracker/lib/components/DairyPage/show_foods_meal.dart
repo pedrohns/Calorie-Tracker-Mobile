@@ -10,7 +10,8 @@ import 'package:calorie_tracker/model/food.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class ShowFoodsMeal extends StatelessWidget {
-  const ShowFoodsMeal({Key? key}) : super(key: key);
+  final String title;
+  const ShowFoodsMeal({required this.title,Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +19,13 @@ class ShowFoodsMeal extends StatelessWidget {
     FoodDetailsList foodsDetails =
         Provider.of<FoodDetailsList>(context, listen: false);
     MealList mealList = Provider.of<MealList>(context, listen: true);
-    ManageState states = Provider.of<ManageState>(context, listen: true);
-    // List<Meal> realMeal = meals.currentMeals;
 
-    List<Meal> whichMeal(ManageState states) {
-      if (mealList.currentMealTitle == 'Café da Manhã') {
+    List<Meal> whichMeal(String title) {
+      if (title == 'Café da Manhã') {
         return mealList.breakfastMeals;
-      } else if (mealList.currentMealTitle == 'Almoço') {
+      } else if (title == 'Almoço') {
         return mealList.lunchMeals;
-      } else if (mealList.currentMealTitle == 'Lanche') {
+      } else if (title == 'Lanche') {
         return mealList.snackMeals;
       } else {
         return mealList.dinnerMeals;
@@ -34,8 +33,8 @@ class ShowFoodsMeal extends StatelessWidget {
     }
 
     return Observer(builder: (_) {
-      final currentMeals = whichMeal(states);
-      print('ShowFoodsMeal state: ' + mealList.currentMealTitle);
+      final currentMeals = whichMeal(title);
+      // print('ShowFoodsMeal state: ' + mealList.currentMealTitle);
       return Column(
         children: mealList.meals.map((meal) {
           Food auxFood = foods.getFoodById(meal.foodId)!;

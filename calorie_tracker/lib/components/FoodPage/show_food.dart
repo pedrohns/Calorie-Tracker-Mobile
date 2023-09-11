@@ -48,6 +48,16 @@ class ShowFood extends StatelessWidget {
     ));
   }
 
+
+  // void addingCalorie(MealList meals, List<Meal> mealsList, List<Meal> currentMeals, FoodDetailsList foodsDetails){
+  //   mealsList.forEach((meal) {
+  //     if (currentMeals.contains(meal)){
+  //       FoodDetails auxDetail = foodsDetails.getDetailById(meal.foodId);
+  //       meals.totalConsumed(mealsList, foodsDetails);
+  //     // meals.consumedCalorie = meals.consumedCalorie + auxDetail.quantityCal;
+  //     }
+  //   });
+  // }
   @override
   Widget build(BuildContext context) {
     List<Food> foods =
@@ -82,6 +92,7 @@ class ShowFood extends StatelessWidget {
                         onPressed: () {
                           print('ShowFood - Clique do onPressed');
                           addingMeal(meals, foods[idx].id, states);
+                          // addingCalorie(meals);
                         },
                         // color: Theme.of(context).colorScheme.secondary,
                         color: Colors.white,

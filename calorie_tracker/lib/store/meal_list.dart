@@ -1,5 +1,7 @@
+import 'package:calorie_tracker/model/meal_calorie.dart';
 import 'package:mobx/mobx.dart';
 import 'package:calorie_tracker/model/meal.dart';
+import 'food_details_list.dart';
 
 part 'meal_list.g.dart';
 
@@ -10,7 +12,13 @@ abstract class _MealList with Store {
   ObservableList<Meal> _meals = ObservableList<Meal>();
 
   @observable
+  ObservableList<MealCalorie> _mealCalories = ObservableList<MealCalorie>();
+
+  @observable
   String currentMealTitle = '';
+
+  @observable
+  int consumedCalorie = 0;
 
   @computed
   List<Meal> get meals => _meals.toList();
@@ -31,14 +39,23 @@ abstract class _MealList with Store {
   @action
   void addMeal(Meal data) {
     _meals.add(data);
-    print(_meals.length);
-    _meals.forEach((meal) {
-      print('addMeal: ' + meal.foodId);
-    });
+    // _meals.forEach((meal) {
+    //   print('addMeal: ' + meal.foodId);
+    //   print('addMeal: ' + meal.breakfast.toString());
+    //   print('addMeal: ' + meal.lunch.toString());
+    // });
   }
 
-  void showData() {
-    print(_meals.length);
+  @action
+  void totalConsumed(List<Meal> meals, FoodDetailsList foodsDetails){
+    // consumedCalorie = 0;
+    // meals.forEach((meal) {
+    //   FoodDetails auxDetail = foodsDetails.getDetailById(meal.foodId);
+    //   consumedCalorie = consumedCalorie + auxDetail.quantityCal;
+    // });
+    // return consumedCalorie;
+
+
   }
 
   @action

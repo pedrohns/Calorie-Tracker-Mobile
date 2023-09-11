@@ -43,9 +43,6 @@ module.exports = function (app) {
     app.get("/sendListFoodFatSecret", async function (req, res) {
         console.log('SendListFoodFatSecret - Fired');
         try {
-            // setTimeout(() => {
-            //     let response =  foods.searchData(req.query.search);
-            //   }, 1000 * 20)
             let response = await foods.searchData(req.query.search);
             await res.status(200).send({ food: response });
         } catch (e) {
@@ -68,7 +65,7 @@ module.exports = function (app) {
 
                 let response = await foods.searchData(body);
 
-                console.log(`getFoodAPI1 - Resposta da busca: ${response} `);
+                // console.log(`getFoodAPI1 - Resposta da busca: ${response} `);
                 if (response == 'Não achou nada') {
                     next()
                 } else {
