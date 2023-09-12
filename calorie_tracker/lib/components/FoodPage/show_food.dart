@@ -2,6 +2,7 @@ import 'package:calorie_tracker/model/food_details.dart';
 import 'package:calorie_tracker/store/food_details_list.dart';
 import 'package:calorie_tracker/store/manage_state.dart';
 import 'package:calorie_tracker/store/meal_list.dart';
+import 'package:calorie_tracker/utils/util_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:calorie_tracker/store/food_list.dart';
@@ -25,8 +26,7 @@ class ShowFood extends StatelessWidget {
     bool isLunch = false;
     bool isSnack = false;
     bool isDinner = false;
-    DateTime now = DateTime.now();
-    DateTime today = DateTime(now.year, now.month, now.day);
+    DateTime today = UtilCustom().getToday();
     if (states.mealTitle == 'Café da Manhã') {
       isBreakfast = true;
     } else if (states.mealTitle == 'Almoço') {

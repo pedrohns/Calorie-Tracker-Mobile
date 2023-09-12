@@ -1,4 +1,3 @@
-import 'package:calorie_tracker/model/meal_calorie.dart';
 import 'package:mobx/mobx.dart';
 import 'package:calorie_tracker/model/meal.dart';
 import 'food_details_list.dart';
@@ -10,9 +9,6 @@ class MealList = _MealList with _$MealList;
 abstract class _MealList with Store {
   @observable
   ObservableList<Meal> _meals = ObservableList<Meal>();
-
-  @observable
-  ObservableList<MealCalorie> _mealCalories = ObservableList<MealCalorie>();
 
   @observable
   String currentMealTitle = '';

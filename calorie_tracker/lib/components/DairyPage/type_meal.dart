@@ -67,7 +67,7 @@ class TypeMeal extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(title, style: Theme.of(context).textTheme.titleSmall!),
-                    Text(meals.totalConsumed(mealSelected, foodsDetails).toString()),
+                    // Text(meals.totalConsumed(mealSelected, foodsDetails).toString()),
 
                   ],
                 ),

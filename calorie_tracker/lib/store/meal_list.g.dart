@@ -66,22 +66,6 @@ mixin _$MealList on _MealList, Store {
     });
   }
 
-  late final _$_mealCaloriesAtom =
-      Atom(name: '_MealList._mealCalories', context: context);
-
-  @override
-  ObservableList<MealCalorie> get _mealCalories {
-    _$_mealCaloriesAtom.reportRead();
-    return super._mealCalories;
-  }
-
-  @override
-  set _mealCalories(ObservableList<MealCalorie> value) {
-    _$_mealCaloriesAtom.reportWrite(value, super._mealCalories, () {
-      super._mealCalories = value;
-    });
-  }
-
   late final _$currentMealTitleAtom =
       Atom(name: '_MealList.currentMealTitle', context: context);
 
