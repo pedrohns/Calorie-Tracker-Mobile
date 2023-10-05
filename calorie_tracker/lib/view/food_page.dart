@@ -3,7 +3,7 @@ import 'package:calorie_tracker/components/FoodPage/show_food.dart';
 import 'package:calorie_tracker/store/manage_state.dart';
 import 'package:flutter/material.dart';
 import 'package:calorie_tracker/components/loading.dart';
-import 'package:provider/provider.dart';
+import 'package:get_it/get_it.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class FoodPage extends StatefulWidget {
@@ -30,7 +30,8 @@ class _FoodPageState extends State<FoodPage> {
 
   @override
   Widget build(BuildContext context) {
-    ManageState controller = Provider.of<ManageState>(context, listen: true);
+    // ManageState controller = Provider.of<ManageState>(context, listen: true);
+    ManageState controller = GetIt.I.get<ManageState>();
     final String titulo = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
       backgroundColor: Color.fromRGBO(50, 51, 60, 0.763),

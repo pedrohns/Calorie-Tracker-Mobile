@@ -1,9 +1,8 @@
 import 'package:calorie_tracker/store/food_details_list.dart';
 import 'package:calorie_tracker/store/food_list.dart';
 import 'package:flutter/material.dart';
-// import 'package:calorie_tracker/components/api_research.dart';
 import 'package:calorie_tracker/components/FoodPage/search_text_field.dart';
-import 'package:provider/provider.dart';
+import 'package:get_it/get_it.dart';
 import 'package:calorie_tracker/store/manage_state.dart';
 
 class SearchBox extends StatefulWidget {
@@ -22,10 +21,10 @@ class _SearchBoxState extends State<SearchBox> {
 
   @override
   Widget build(BuildContext context) {
-    final controllerFoods = Provider.of<FoodList>(context, listen: false);
+    final controllerFoods = GetIt.I.get<FoodList>();
     final controllerFoodsDetails =
-        Provider.of<FoodDetailsList>(context, listen: false);
-    ManageState states = Provider.of<ManageState>(context);
+        GetIt.I.get<FoodDetailsList>();
+    ManageState states = GetIt.I.get<ManageState>();
     Map<String, dynamic> generalController = {
       'Foods': controllerFoods,
       'FoodsDetails': controllerFoodsDetails,

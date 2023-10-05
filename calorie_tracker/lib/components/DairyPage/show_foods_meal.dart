@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:calorie_tracker/model/food_details.dart';
 import 'package:calorie_tracker/store/food_details_list.dart';
 import 'package:calorie_tracker/store/meal_list.dart';
-import 'package:provider/provider.dart';
+import 'package:get_it/get_it.dart';
 import 'package:calorie_tracker/store/food_list.dart';
 import 'package:calorie_tracker/model/food.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -16,10 +16,10 @@ class ShowFoodsMeal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FoodList foods = Provider.of<FoodList>(context, listen: false);
+    FoodList foods = GetIt.I.get<FoodList>();
     FoodDetailsList foodsDetails =
-        Provider.of<FoodDetailsList>(context, listen: false);
-    MealList mealList = Provider.of<MealList>(context, listen: true);
+        GetIt.I.get<FoodDetailsList>();
+    MealList mealList = GetIt.I.get<MealList>();
 
     return Observer(builder: (_) {
       final currentMeals = utils.whichMeal(title, mealList);

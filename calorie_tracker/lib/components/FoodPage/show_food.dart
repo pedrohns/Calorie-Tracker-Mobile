@@ -4,7 +4,7 @@ import 'package:calorie_tracker/store/manage_state.dart';
 import 'package:calorie_tracker/store/meal_list.dart';
 import 'package:calorie_tracker/utils/util_custom.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get_it/get_it.dart';
 import 'package:calorie_tracker/store/food_list.dart';
 import 'package:calorie_tracker/model/food.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -61,11 +61,11 @@ class ShowFood extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Food> foods =
-        Provider.of<FoodList>(context, listen: false).searchResults;
+        GetIt.I.get<FoodList>().searchResults;
     List<FoodDetails> foodsDetails =
-        Provider.of<FoodDetailsList>(context, listen: false).searchResults;
-    MealList meals = Provider.of<MealList>(context, listen: false);
-    ManageState states = Provider.of<ManageState>(context, listen: false);
+        GetIt.I.get<FoodDetailsList>().searchResults;
+    MealList meals = GetIt.I.get<MealList>();
+    ManageState states = GetIt.I.get<ManageState>();
 
     return AnimationLimiter(
       child: ListView.builder(

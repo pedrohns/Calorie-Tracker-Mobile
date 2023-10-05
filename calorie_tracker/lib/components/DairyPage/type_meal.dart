@@ -6,7 +6,7 @@ import 'package:calorie_tracker/store/meal_list.dart';
 import 'package:flutter/material.dart';
 import 'package:calorie_tracker/utils/app_routes.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:provider/provider.dart';
+import 'package:get_it/get_it.dart';
 
 class TypeMeal extends StatelessWidget {
   final String title;
@@ -43,9 +43,9 @@ class TypeMeal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // double mediaQueryWidth = MediaQuery.of(context).size.width;
-    ManageState states = Provider.of<ManageState>(context, listen: false);
-    MealList meals = Provider.of<MealList>(context, listen: true);
-    FoodDetailsList foodsDetails = Provider.of<FoodDetailsList>(context, listen: false);
+    ManageState states = GetIt.I.get<ManageState>();
+    MealList meals = GetIt.I.get<MealList>();
+    FoodDetailsList foodsDetails = GetIt.I.get<FoodDetailsList>();
     List<Meal> mealSelected = whichMeal(secondTitle, meals);
     double mediaQueryHeight =
         MediaQuery.of(context).size.height - kBottomNavigationBarHeight;

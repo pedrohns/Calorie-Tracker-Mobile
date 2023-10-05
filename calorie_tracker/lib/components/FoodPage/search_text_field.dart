@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get_it/get_it.dart';
 import 'package:rxdart/rxdart.dart';
 import '../../store/manage_state.dart';
 
@@ -30,7 +30,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Provider.of<ManageState>(context);
+    final controller = GetIt.I.get<ManageState>();
     return TextField(
       controller: _controller,
       // Adicione o texto atual ao _subject cada vez que o usuário digitar.

@@ -52,6 +52,7 @@ abstract class _ResumedPerfilList with Store {
   void addResumedPerfil(ResumedPerfil perfil){
     print('ResumedPerfilList - addResumedPerfil fired');
     _resumedPerfil.add(perfil);
+    // print(_resumedPerfil.first.day);
   }
 
   @action
