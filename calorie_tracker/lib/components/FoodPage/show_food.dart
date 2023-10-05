@@ -2,6 +2,7 @@ import 'package:calorie_tracker/model/food_details.dart';
 import 'package:calorie_tracker/store/food_details_list.dart';
 import 'package:calorie_tracker/store/manage_state.dart';
 import 'package:calorie_tracker/store/meal_list.dart';
+import 'package:calorie_tracker/model/resumed_perfil.dart';
 import 'package:calorie_tracker/utils/util_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -10,6 +11,7 @@ import 'package:calorie_tracker/model/food.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import '../../model/meal.dart';
 import 'package:calorie_tracker/utils/generate_rowid.dart';
+import 'package:calorie_tracker/store/resumed_perfil_list.dart';
 
 class ShowFood extends StatelessWidget {
   const ShowFood({Key? key}) : super(key: key);
@@ -48,16 +50,6 @@ class ShowFood extends StatelessWidget {
     ));
   }
 
-
-  // void addingCalorie(MealList meals, List<Meal> mealsList, List<Meal> currentMeals, FoodDetailsList foodsDetails){
-  //   mealsList.forEach((meal) {
-  //     if (currentMeals.contains(meal)){
-  //       FoodDetails auxDetail = foodsDetails.getDetailById(meal.foodId);
-  //       meals.totalConsumed(mealsList, foodsDetails);
-  //     // meals.consumedCalorie = meals.consumedCalorie + auxDetail.quantityCal;
-  //     }
-  //   });
-  // }
   @override
   Widget build(BuildContext context) {
     List<Food> foods =
@@ -66,6 +58,7 @@ class ShowFood extends StatelessWidget {
         GetIt.I.get<FoodDetailsList>().searchResults;
     MealList meals = GetIt.I.get<MealList>();
     ManageState states = GetIt.I.get<ManageState>();
+    ResumedPerfilList perfil = GetIt.I.get<ResumedPerfilList>();
 
     return AnimationLimiter(
       child: ListView.builder(
@@ -92,7 +85,7 @@ class ShowFood extends StatelessWidget {
                         onPressed: () {
                           print('ShowFood - Clique do onPressed');
                           addingMeal(meals, foods[idx].id, states);
-                          // addingCalorie(meals);
+                          perfil.totalConsumed();
                         },
                         // color: Theme.of(context).colorScheme.secondary,
                         color: Colors.white,

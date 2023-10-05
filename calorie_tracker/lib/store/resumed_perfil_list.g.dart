@@ -16,6 +16,13 @@ mixin _$ResumedPerfilList on _ResumedPerfilList, Store {
       (_$perfilComputed ??= Computed<List<ResumedPerfil>>(() => super.perfil,
               name: '_ResumedPerfilList.perfil'))
           .value;
+  Computed<ResumedPerfil>? _$todayResumedPerfilComputed;
+
+  @override
+  ResumedPerfil get todayResumedPerfil => (_$todayResumedPerfilComputed ??=
+          Computed<ResumedPerfil>(() => super.todayResumedPerfil,
+              name: '_ResumedPerfilList.todayResumedPerfil'))
+      .value;
 
   late final _$_resumedPerfilAtom =
       Atom(name: '_ResumedPerfilList._resumedPerfil', context: context);
@@ -53,12 +60,11 @@ mixin _$ResumedPerfilList on _ResumedPerfilList, Store {
       ActionController(name: '_ResumedPerfilList', context: context);
 
   @override
-  void totalConsumed(List<Meal> meals, FoodDetailsList foodsDetails,
-      [DateTime? dayPassed]) {
+  void totalConsumed([DateTime? dayPassed]) {
     final _$actionInfo = _$_ResumedPerfilListActionController.startAction(
         name: '_ResumedPerfilList.totalConsumed');
     try {
-      return super.totalConsumed(meals, foodsDetails, dayPassed);
+      return super.totalConsumed(dayPassed);
     } finally {
       _$_ResumedPerfilListActionController.endAction(_$actionInfo);
     }
@@ -90,7 +96,8 @@ mixin _$ResumedPerfilList on _ResumedPerfilList, Store {
   String toString() {
     return '''
 consumedCalorie: ${consumedCalorie},
-perfil: ${perfil}
+perfil: ${perfil},
+todayResumedPerfil: ${todayResumedPerfil}
     ''';
   }
 }

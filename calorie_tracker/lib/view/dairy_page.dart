@@ -1,9 +1,12 @@
 import 'package:calorie_tracker/components/DairyPage/show_foods_meal.dart';
+import 'package:calorie_tracker/model/resumed_perfil.dart';
+import 'package:calorie_tracker/store/resumed_perfil_list.dart';
 import 'package:flutter/material.dart';
 import 'package:calorie_tracker/data/dummy_data.dart';
 import 'package:calorie_tracker/model/user.dart';
 import 'package:calorie_tracker/components/DairyPage/type_meal.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
 
 class DairyPage extends StatefulWidget {
   const DairyPage({Key? key}) : super(key: key);
@@ -90,12 +93,20 @@ class _DairyPageState extends State<DairyPage> {
     return widgets;
   }
 
+  int totalConsumed(ResumedPerfilList perfilAux) {
+    ResumedPerfil perfil = perfilAux.todayResumedPerfil;
+    return perfil.calorieBreakfast +
+        perfil.calorieDinner +
+        perfil.calorieLunch +
+        perfil.calorieSnack;
+  }
+
   @override
   Widget build(BuildContext context) {
+    ResumedPerfilList perfil = GetIt.I.get<ResumedPerfilList>();
     double mediaQueryHeight =
         MediaQuery.of(context).size.height - kBottomNavigationBarHeight;
-    double totalConsumed =
-        user.targetCalorie - user.consumedCalorie + user.dairyExercice;
+    // user.targetCalorie - user.consumedCalorie + user.dairyExercice;
     return Column(
       children: [
         Container(
@@ -108,62 +119,64 @@ class _DairyPageState extends State<DairyPage> {
             bottom: 10.0,
             right: 20.0,
           ),
-          child: Column(
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [Text('Calorias restantes')],
-              ),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [
-                      Text(
-                        user.targetCalorie.toStringAsFixed(0),
-                        style: Theme.of(context).textTheme.bodyMedium!,
-                      ),
-                      SizedBox(height: 2),
-                      Text('Meta'),
-                    ],
-                  ),
-                  Text('-'),
-                  Column(
-                    children: [
-                      Text(
-                        user.consumedCalorie.toStringAsFixed(0),
-                        style: Theme.of(context).textTheme.bodyMedium!,
-                      ),
-                      SizedBox(height: 2),
-                      Text('Alimentos'),
-                    ],
-                  ),
-                  Text('+'),
-                  Column(
-                    children: [
-                      Text(
-                        user.dairyExercice.toStringAsFixed(0),
-                        style: Theme.of(context).textTheme.bodyMedium!,
-                      ),
-                      SizedBox(height: 2),
-                      Text('Exercício'),
-                    ],
-                  ),
-                  Text('='),
-                  Column(
-                    children: [
-                      Text(
-                        totalConsumed.toStringAsFixed(0),
-                        style: Theme.of(context).textTheme.titleSmall!,
-                      ),
-                      SizedBox(height: 2),
-                      Text('Restantes'),
-                    ],
-                  ),
-                ],
-              ),
-            ],
+          child: Observer(
+            builder: (_) => Column(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [Text('Calorias restantes')],
+                ),
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        Text(
+                          user.targetCalorie.toStringAsFixed(0),
+                          style: Theme.of(context).textTheme.bodyMedium!,
+                        ),
+                        SizedBox(height: 2),
+                        Text('Meta'),
+                      ],
+                    ),
+                    Text('-'),
+                    Column(
+                      children: [
+                        Text(
+                          user.consumedCalorie.toStringAsFixed(0),
+                          style: Theme.of(context).textTheme.bodyMedium!,
+                        ),
+                        SizedBox(height: 2),
+                        Text('Alimentos'),
+                      ],
+                    ),
+                    Text('+'),
+                    Column(
+                      children: [
+                        Text(
+                          user.dairyExercice.toStringAsFixed(0),
+                          style: Theme.of(context).textTheme.bodyMedium!,
+                        ),
+                        SizedBox(height: 2),
+                        Text('Exercício'),
+                      ],
+                    ),
+                    Text('='),
+                    Column(
+                      children: [
+                        Text(
+                          perfil.consumedCalorie.toStringAsFixed(0),
+                          style: Theme.of(context).textTheme.titleSmall!,
+                        ),
+                        SizedBox(height: 2),
+                        Text('Restantes'),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
         // Fim da primeira parte
