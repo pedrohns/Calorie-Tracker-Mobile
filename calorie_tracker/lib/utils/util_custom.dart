@@ -30,4 +30,6 @@ class UtilCustom {
     DateTime today = DateTime(now.year, now.month, now.day);
     return today;
   }
+
+  bool userIsLogged () => false;
 }

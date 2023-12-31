@@ -8,7 +8,9 @@ import 'package:calorie_tracker/store/meal_list.dart';
 import 'package:calorie_tracker/store/resumed_perfil_list.dart';
 import 'package:calorie_tracker/utils/app_routes.dart';
 import 'package:calorie_tracker/utils/generate_rowid.dart';
+import 'package:calorie_tracker/view/authentication_page.dart';
 import 'package:calorie_tracker/view/food_page.dart';
+import 'package:calorie_tracker/view/login_page.dart';
 import 'package:calorie_tracker/view/tabs_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:calorie_tracker/utils/util_custom.dart';
@@ -26,11 +28,10 @@ void main() {
 }
 
 class MyAppState extends State<MyApp> {
-
   @override
-  void initState(){
+  void initState() {
     print('InitState fired');
-    
+
     super.initState();
 
     // Agendar a função para ser chamada após a construção dos widgets
@@ -39,11 +40,13 @@ class MyAppState extends State<MyApp> {
       // ResumedPerfilList().teste();
       final resumedPerfilList = GetIt.I.get<ResumedPerfilList>();
       // resumedPerfilList.teste();
-      ResumedPerfil todayProfile = ResumedPerfil(day: UtilCustom().getToday(), id: GenerateRowid().generate());
-      
+      String id = GenerateRowid().generate();
+      print('Main id: ' + id);
+      ResumedPerfil todayProfile =
+          ResumedPerfil(day: UtilCustom().getToday(), id: id);
+
       // Adicione sua instância à lista global ou ao provedor, ou faça o que quiser com ela aqui.
       resumedPerfilList.addResumedPerfil(todayProfile);
-      
     });
   }
 
@@ -100,6 +103,8 @@ class MyAppState extends State<MyApp> {
                 selectedScreenIndex: 1,
               ),
           AppRoutes.food: (ctx) => FoodPage(),
+          AppRoutes.login: (ctx) => LoginPage(),
+          AppRoutes.index: (ctx) => AuthenticationPage(),
         });
   }
 }
