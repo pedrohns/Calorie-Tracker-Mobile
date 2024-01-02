@@ -28,6 +28,7 @@ void main() {
 }
 
 class MyAppState extends State<MyApp> {
+  UtilCustom utils = UtilCustom();
   @override
   void initState() {
     print('InitState fired');
@@ -42,8 +43,7 @@ class MyAppState extends State<MyApp> {
       // resumedPerfilList.teste();
       String id = GenerateRowid().generate();
       print('Main id: ' + id);
-      ResumedPerfil todayProfile =
-          ResumedPerfil(day: UtilCustom().getToday(), id: id);
+      ResumedPerfil todayProfile = ResumedPerfil(day: utils.getToday(), id: id);
 
       // Adicione sua instância à lista global ou ao provedor, ou faça o que quiser com ela aqui.
       resumedPerfilList.addResumedPerfil(todayProfile);

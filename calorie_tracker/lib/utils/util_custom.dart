@@ -25,11 +25,11 @@ class UtilCustom {
       return 'Jantar';
   }
 
-  DateTime getToday (){
+  DateTime getToday() {
     DateTime now = DateTime.now();
     DateTime today = DateTime(now.year, now.month, now.day);
     return today;
   }
 
-  bool userIsLogged () => false;
+  bool userIsLogged() => false;
 }

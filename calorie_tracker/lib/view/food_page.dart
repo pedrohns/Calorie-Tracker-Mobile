@@ -30,7 +30,6 @@ class _FoodPageState extends State<FoodPage> {
 
   @override
   Widget build(BuildContext context) {
-    // ManageState controller = Provider.of<ManageState>(context, listen: true);
     ManageState controller = GetIt.I.get<ManageState>();
     final String titulo = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
