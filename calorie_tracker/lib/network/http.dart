@@ -22,4 +22,17 @@ class Http {
       return e.toString();
     }
   }
+
+  Future<dynamic> sendRequest(String url) async {
+    try {
+      configureDio();
+      var response = await dio.get('http://10.0.2.2:8080/$url');
+      // print('Http - ${response.data["food"]}');
+      // print('Http - ${response.data.food.length}' );
+      return response.data;
+    } catch (e) {
+      //  print(e.toString());
+      return e.toString();
+    }
+  }
 }

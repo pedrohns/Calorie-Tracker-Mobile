@@ -1,5 +1,8 @@
 import 'package:calorie_tracker/utils/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:calorie_tracker/network/http.dart';
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -11,20 +14,42 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  bool isLoginFailed = false;
+  String isLoginFailed = 'not logged';
+  var http = Http();
 
-  void _login() {
+  void _login() async {
     String email = emailController.text;
-    String password = passwordController.text;
-    // Aqui você deve realizar a autenticação real, por exemplo, com Firebase, API, etc.
-    if (email == 'user@example.com' && password == 'password') {
-      // Navegar para a próxima tela (página inicial, por exemplo)
-      Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+    var bytes = utf8.encode(passwordController.text);
+    String password = sha256.convert(bytes).toString();
+
+    try {
+      var response = await http
+          .createConnection('checkLogin?email=${email}&password=${password}');
+      if (response.data['status'] == 'ok') {
+        Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+      } else {
+        setState(() {
+          isLoginFailed = 'failed';
+        });
+      }
+    } catch (e) {
+      print('_login - erro - ${e.toString()}');
+    }
+  }
+
+  Widget showData() {
+    if (isLoginFailed == 'failed') {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          'Email ou senha incorreta. Por favor tente novamente.',
+          style: TextStyle(color: Colors.red),
+        ),
+      );
+    } else if (isLoginFailed == 'loading') {
+      return CircularProgressIndicator();
     } else {
-      // Exibir mensagem de erro se a autenticação falhar
-      setState(() {
-        isLoginFailed = true;
-      });
+      return Text('');
     }
   }
 
@@ -114,14 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: Text('Entrar'),
                         ),
                       ),
-                      if (isLoginFailed)
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'Email ou senha incorreta. Por favor tente novamente.',
-                            style: TextStyle(color: Colors.red),
-                          ),
-                        ),
+                      showData(),
                     ],
                   ),
                 ),
