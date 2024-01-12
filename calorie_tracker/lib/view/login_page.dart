@@ -93,21 +93,23 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       body: Container(
-        padding: EdgeInsets.only(top: height * 0.15),
+        padding: EdgeInsets.only(top: height * 0.11),
         color: Theme.of(context).colorScheme.secondary,
         // height: double.infinity,
         width: width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              "Calorie Tracker",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: titleLarge.color,
-                fontFamily: titleLarge.fontFamily,
-                fontWeight: titleLarge.fontWeight,
-                fontSize: 50,
+            Container(
+              child: Text(
+                "Calorie Tracker",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: titleLarge.color,
+                  fontFamily: titleLarge.fontFamily,
+                  fontWeight: titleLarge.fontWeight,
+                  fontSize: 50,
+                ),
               ),
             ),
             SizedBox(height: 20),
@@ -122,9 +124,9 @@ class _LoginPageState extends State<LoginPage> {
                 height: height * 0.4,
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  child: ListView(
                     children: [
+                      SizedBox(height: height * 0.15),
                       buildTextField(
                           emailController,
                           'Email',
