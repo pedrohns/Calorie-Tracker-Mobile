@@ -1,6 +1,7 @@
 import 'package:calorie_tracker/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:calorie_tracker/utils/util_custom.dart';
+import 'package:calorie_tracker/authenticator/auth_manager.dart';
 
 class AuthenticationPage extends StatefulWidget {
   const AuthenticationPage({Key? key}) : super(key: key);
@@ -20,7 +21,8 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
   }
 
   Future<void> checkLoginStatus() async {
-    bool isLogged = UtilCustom().userIsLogged();
+    // bool isLogged = UtilCustom().userIsLogged();
+    bool isLogged = await AuthManager.isLoggedIn();
     print('AuthenticationPage checkLoginStatus isLogged : $isLogged');
     if (!isLogged) {
       // Se não estiver logado, redirecione para a página de login

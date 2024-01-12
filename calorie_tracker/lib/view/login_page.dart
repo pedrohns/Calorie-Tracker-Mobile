@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:calorie_tracker/network/http.dart';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
+import 'package:calorie_tracker/authenticator/auth_manager.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -18,17 +19,19 @@ class _LoginPageState extends State<LoginPage> {
   var http = Http();
 
   void _login() async {
+    setState(() {
+      isLoginFailed = 'loading';
+    });
     String email = emailController.text;
     var bytes = utf8.encode(passwordController.text);
     String password = sha256.convert(bytes).toString();
     print('_login password: $password');
 
     try {
-      var response = await http
-          .sendRequest('checkLogin', 'post',{
-            'email': email, 'password': password
-          });
+      var response = await http.sendRequest(
+          'checkLogin', 'post', {'email': email, 'password': password});
       if (response == 'Authenticated') {
+        AuthManager.login();
         Navigator.of(context).pushReplacementNamed(AppRoutes.home);
       } else {
         setState(() {
@@ -41,6 +44,11 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget showData() {
+    // ScaffoldMessenger.of(context).showSnackBar(
+    //                 SnackBar(
+    //                   content: Text('Login failed. Please try again.'),
+    //                 ),
+    //               );
     if (isLoginFailed == 'failed') {
       return Padding(
         padding: const EdgeInsets.all(5.0),
@@ -83,6 +91,7 @@ class _LoginPageState extends State<LoginPage> {
     TextStyle titleLarge = Theme.of(context).textTheme.titleLarge!;
 
     return Scaffold(
+      // resizeToAvoidBottomInset: false,
       body: Container(
         padding: EdgeInsets.only(top: height * 0.15),
         color: Theme.of(context).colorScheme.secondary,
@@ -102,6 +111,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             SizedBox(height: 20),
+            // Spacer(),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
