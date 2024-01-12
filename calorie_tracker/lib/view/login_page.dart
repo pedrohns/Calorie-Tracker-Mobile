@@ -21,11 +21,14 @@ class _LoginPageState extends State<LoginPage> {
     String email = emailController.text;
     var bytes = utf8.encode(passwordController.text);
     String password = sha256.convert(bytes).toString();
+    print('_login password: $password');
 
     try {
       var response = await http
-          .createConnection('checkLogin?email=${email}&password=${password}');
-      if (response.data['status'] == 'ok') {
+          .sendRequest('checkLogin', 'post',{
+            'email': email, 'password': password
+          });
+      if (response == 'Authenticated') {
         Navigator.of(context).pushReplacementNamed(AppRoutes.home);
       } else {
         setState(() {
@@ -40,10 +43,10 @@ class _LoginPageState extends State<LoginPage> {
   Widget showData() {
     if (isLoginFailed == 'failed') {
       return Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(5.0),
         child: Text(
           'Email ou senha incorreta. Por favor tente novamente.',
-          style: TextStyle(color: Colors.red),
+          style: TextStyle(color: Colors.red, fontSize: 10.0),
         ),
       );
     } else if (isLoginFailed == 'loading') {
