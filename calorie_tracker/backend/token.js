@@ -1,4 +1,4 @@
-require('dotenv').config({ path: 'C:/Work/CalorieTracker/calorie_tracker/backend/.env'});
+require('dotenv').config({ path: 'C:/dev/calorie_tracker/calorie_tracker/backend/.env'});
 const createConnection = require('./utils/sqlConnect')
 const token = require('./consts');
 const clientID = process.env.CLIENT_ID;
