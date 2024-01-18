@@ -57,6 +57,21 @@ mixin _$ManageState on _ManageState, Store {
     });
   }
 
+  late final _$idUserAtom = Atom(name: '_ManageState.idUser', context: context);
+
+  @override
+  String get idUser {
+    _$idUserAtom.reportRead();
+    return super.idUser;
+  }
+
+  @override
+  set idUser(String value) {
+    _$idUserAtom.reportWrite(value, super.idUser, () {
+      super.idUser = value;
+    });
+  }
+
   late final _$fetchDataAsyncAction =
       AsyncAction('_ManageState.fetchData', context: context);
 
@@ -65,6 +80,14 @@ mixin _$ManageState on _ManageState, Store {
       String search, Map<String, dynamic> generalController) {
     return _$fetchDataAsyncAction
         .run(() => super.fetchData(search, generalController));
+  }
+
+  late final _$setUserDataAsyncAction =
+      AsyncAction('_ManageState.setUserData', context: context);
+
+  @override
+  Future<void> setUserData(String rowid) {
+    return _$setUserDataAsyncAction.run(() => super.setUserData(rowid));
   }
 
   late final _$_ManageStateActionController =
@@ -108,7 +131,8 @@ mixin _$ManageState on _ManageState, Store {
     return '''
 isSearching: ${isSearching},
 canLoad: ${canLoad},
-mealTitle: ${mealTitle}
+mealTitle: ${mealTitle},
+idUser: ${idUser}
     ''';
   }
 }

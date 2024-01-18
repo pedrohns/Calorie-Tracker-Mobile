@@ -30,8 +30,8 @@ class _LoginPageState extends State<LoginPage> {
     try {
       var response = await http.sendRequest(
           'checkLogin', 'post', {'email': email, 'password': password});
-      if (response == 'Authenticated') {
-        AuthManager.login();
+      if (response['status'] == 'Authenticated') {
+        AuthManager.login(response['id']);
         Navigator.of(context).pushReplacementNamed(AppRoutes.home);
       } else {
         setState(() {
@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
       );
     } else if (isLoginFailed == 'loading') {
-      return CircularProgressIndicator();
+      return Container(width: 10, height: 10, child: CircularProgressIndicator());
     } else {
       return Text('');
     }

@@ -1,3 +1,4 @@
+import 'package:calorie_tracker/model/user.dart';
 import 'package:mobx/mobx.dart';
 import 'package:calorie_tracker/components/api_research.dart';
 
@@ -14,6 +15,9 @@ abstract class _ManageState with Store {
 
   @observable
   String mealTitle = '';
+
+  @observable
+  String idUser = '';
 
   @action
   void setSearch(bool isReady) {
@@ -46,5 +50,10 @@ abstract class _ManageState with Store {
   void whichMeal(String which) {
     mealTitle = which;
     print('ManageState - whichMeal - $mealTitle');
+  }
+
+  @action
+  Future<void> setUserData(String rowid) async  {
+    idUser = rowid;
   }
 }

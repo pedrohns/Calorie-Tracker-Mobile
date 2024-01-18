@@ -32,4 +32,8 @@ class UtilCustom {
   }
 
   bool userIsLogged() => false;
+
+  Future<void> setUserData() async {
+    
+  }
 }

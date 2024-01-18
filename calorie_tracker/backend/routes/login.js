@@ -8,8 +8,9 @@ require('dotenv').config()
 
 module.exports = function (app) {
     app.post("/checkLogin", async function (req, response) {
-        console.log(req.body)
+        // console.log(req.body)
         let res = await checkParams(req.body)
+        console.log(res)
         response.status(200).send(res)
         // process.exit()
     })
@@ -18,13 +19,13 @@ module.exports = function (app) {
         if (!!params) {
             let result = await calorieDao.select(`select rowid from ct_user where email = '${params.email}' and password = '${params.password}'`)
             if (result.length > 0) {
-              return 'Authenticated';
+              return {'status':'Authenticated', 'id':result[0].rowid};
             } else {
-                return 'User not found'
+                return {'status':'User not found'}
             }
             
           } else {
-            return 'Empty param';
+            return {'status':'Empty param'};
           }
     }
 }
