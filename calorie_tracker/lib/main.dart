@@ -38,9 +38,7 @@ class MyAppState extends State<MyApp> {
     // Agendar a função para ser chamada após a construção dos widgets
     WidgetsBinding.instance.addPostFrameCallback((_) {
       print('Entro no método addPostFrameCallback');
-      // ResumedPerfilList().teste();
       final resumedPerfilList = GetIt.I.get<ResumedPerfilList>();
-      // resumedPerfilList.teste();
       String id = GenerateRowid().generate();
       print('Main id: ' + id);
       ResumedPerfil todayProfile = ResumedPerfil(day: utils.getToday(), id: id);

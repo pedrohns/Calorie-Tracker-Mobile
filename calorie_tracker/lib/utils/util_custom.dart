@@ -1,5 +1,7 @@
 import 'package:calorie_tracker/model/meal.dart';
 import 'package:calorie_tracker/store/meal_list.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter/material.dart';
 
 class UtilCustom {
   List<Meal> whichMeal(String title, MealList mealList) {
@@ -35,5 +37,16 @@ class UtilCustom {
 
   Future<void> setUserData() async {
     
+  }
+
+  void showToast(String msg) {
+    Fluttertoast.showToast(
+          msg: msg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM_LEFT,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.white54,
+          textColor: Colors.red,
+          fontSize: 16.0);
   }
 }

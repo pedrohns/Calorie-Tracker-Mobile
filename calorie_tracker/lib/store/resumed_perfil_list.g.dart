@@ -93,6 +93,17 @@ mixin _$ResumedPerfilList on _ResumedPerfilList, Store {
   }
 
   @override
+  void addIdUser(ResumedPerfil perfil, String idUser) {
+    final _$actionInfo = _$_ResumedPerfilListActionController.startAction(
+        name: '_ResumedPerfilList.addIdUser');
+    try {
+      return super.addIdUser(perfil, idUser);
+    } finally {
+      _$_ResumedPerfilListActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 consumedCalorie: ${consumedCalorie},

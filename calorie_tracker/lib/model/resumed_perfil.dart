@@ -5,6 +5,7 @@ class ResumedPerfil{
   int calorieDinner;
   final DateTime day;
   final String id;
+  String userId;
 
   ResumedPerfil({
     this.calorieBreakfast = 0,
@@ -13,5 +14,6 @@ class ResumedPerfil{
     this.calorieSnack = 0,
     required this.day,
     required this.id,
+    this.userId = '',
   });
 }

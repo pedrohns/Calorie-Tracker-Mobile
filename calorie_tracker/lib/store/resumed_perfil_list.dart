@@ -85,4 +85,16 @@ abstract class _ResumedPerfilList with Store {
   void teste() {
     print('ResumedPerfilList - fired');
   }
+
+  @action
+  void addIdUser(ResumedPerfil perfil, String idUser) {
+    // Para retornar um perfil
+    // ResumedPerfil currentPerfil = _resumedPerfil.firstWhere((searchPerfil) => searchPerfil.id == perfil.id);
+
+    int index = _resumedPerfil.indexWhere((searchPerfil) => searchPerfil.id == perfil.id);
+    if(index != -1){
+      _resumedPerfil[index].userId = idUser;
+    }
+
+  }
 }
