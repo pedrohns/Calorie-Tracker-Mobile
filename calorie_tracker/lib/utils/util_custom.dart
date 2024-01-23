@@ -1,7 +1,9 @@
 import 'package:calorie_tracker/model/meal.dart';
 import 'package:calorie_tracker/store/meal_list.dart';
+import 'package:calorie_tracker/store/resumed_perfil_list.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class UtilCustom {
   List<Meal> whichMeal(String title, MealList mealList) {
@@ -35,8 +37,9 @@ class UtilCustom {
 
   bool userIsLogged() => false;
 
-  Future<void> setUserData() async {
-    
+  Future<void> setUserData(String userId) async {
+   ResumedPerfilList resumedPerfilList = GetIt.I.get<ResumedPerfilList>();
+   resumedPerfilList.addIdUser(resumedPerfilList.todayResumedPerfil, userId);
   }
 
   void showToast(String msg) {

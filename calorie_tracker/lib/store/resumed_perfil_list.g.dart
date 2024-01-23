@@ -71,6 +71,17 @@ mixin _$ResumedPerfilList on _ResumedPerfilList, Store {
   }
 
   @override
+  void resetCounterCalorie(ResumedPerfil resumedPerfil) {
+    final _$actionInfo = _$_ResumedPerfilListActionController.startAction(
+        name: '_ResumedPerfilList.resetCounterCalorie');
+    try {
+      return super.resetCounterCalorie(resumedPerfil);
+    } finally {
+      _$_ResumedPerfilListActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void addResumedPerfil(ResumedPerfil perfil) {
     final _$actionInfo = _$_ResumedPerfilListActionController.startAction(
         name: '_ResumedPerfilList.addResumedPerfil');
@@ -98,6 +109,17 @@ mixin _$ResumedPerfilList on _ResumedPerfilList, Store {
         name: '_ResumedPerfilList.addIdUser');
     try {
       return super.addIdUser(perfil, idUser);
+    } finally {
+      _$_ResumedPerfilListActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void addTodayResumed(ResumedPerfil todayPerfil) {
+    final _$actionInfo = _$_ResumedPerfilListActionController.startAction(
+        name: '_ResumedPerfilList.addTodayResumed');
+    try {
+      return super.addTodayResumed(todayPerfil);
     } finally {
       _$_ResumedPerfilListActionController.endAction(_$actionInfo);
     }

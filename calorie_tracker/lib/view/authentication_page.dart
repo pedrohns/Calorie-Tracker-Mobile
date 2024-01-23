@@ -29,6 +29,8 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
         // Se não estiver logado, redirecione para a página de login
         Navigator.of(context).pushReplacementNamed(AppRoutes.login);
       } else {
+        String? userId =  await AuthManager.getUserId();
+        UtilCustom().setUserData(userId!);
         Navigator.of(context).pushReplacementNamed(AppRoutes.home);
       }
     } catch (e) {

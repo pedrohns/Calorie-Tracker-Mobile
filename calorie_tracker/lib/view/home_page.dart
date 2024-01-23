@@ -1,7 +1,10 @@
 import 'package:calorie_tracker/components/HomePage/calorie_review.dart';
 import 'package:calorie_tracker/components/HomePage/water_exercice_review.dart';
 import 'package:calorie_tracker/components/HomePage/weight_review.dart';
+import 'package:calorie_tracker/model/resumed_perfil.dart';
+import 'package:calorie_tracker/store/resumed_perfil_list.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({key});
@@ -9,6 +12,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double widthQuery = MediaQuery.of(context).size.width;
+    ResumedPerfilList resumedPerfilList = GetIt.I.get<ResumedPerfilList>();
+    ResumedPerfil todayPerfil = resumedPerfilList.todayResumedPerfil;
+    print('HomePage build - todayPerfil ${todayPerfil.userId}');
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,

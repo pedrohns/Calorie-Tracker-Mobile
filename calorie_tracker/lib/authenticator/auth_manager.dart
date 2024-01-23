@@ -48,8 +48,8 @@ class AuthManager {
   }
 
   static Future<bool> isLoggedIn() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove(_lastLoginKey);
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
+    // prefs.remove(_lastLoginKey);
     final token = await getToken();
     final lastLogin = await getLastLogin();
     final rowid = await getUserId();

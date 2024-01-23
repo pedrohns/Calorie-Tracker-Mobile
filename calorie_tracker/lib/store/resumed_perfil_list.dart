@@ -49,29 +49,44 @@ abstract class _ResumedPerfilList with Store {
     List<Meal> meals = GetIt.I.get<MealList>().meals;
     String typeMeal = utils.typeMeal(meals);
     FoodDetailsList foodsDetails = GetIt.I.get<FoodDetailsList>();
+    // faço isso para que quando percorrer o array de alimentos, não somar tudo novamente
+    resetCounterCalorie(todayPerfil);
 
     meals.forEach((meal) {
       FoodDetails auxDetail = foodsDetails.getDetailById(meal.foodId);
       if (typeMeal == 'Café da Manhã') {
         todayPerfil.calorieBreakfast =
             todayPerfil.calorieBreakfast + auxDetail.quantityCal;
+        // print('ResumedPerfilList totalConsumed - Café da Manhã: ${todayPerfil.calorieBreakfast}');
       } else if (typeMeal == 'Almoço') {
         todayPerfil.calorieLunch =
             todayPerfil.calorieLunch + auxDetail.quantityCal;
+            // print('ResumedPerfilList totalConsumed - Almoço: ${todayPerfil.calorieLunch}');
       } else if (typeMeal == 'Lanche') {
         todayPerfil.calorieSnack =
             todayPerfil.calorieSnack + auxDetail.quantityCal;
+            // print('ResumedPerfilList totalConsumed - Lanche: ${todayPerfil.calorieSnack}');
       } else {
         todayPerfil.calorieDinner =
             todayPerfil.calorieDinner + auxDetail.quantityCal;
+            // print('ResumedPerfilList totalConsumed - Jantar: ${todayPerfil.calorieDinner}');
       }
     });
-    _resumedPerfil.removeWhere((toRemove) => toRemove.id == todayPerfil.id);
-    _resumedPerfil.add(todayPerfil);
+    addTodayResumed(todayPerfil);
     consumedCalorie = todayPerfil.calorieBreakfast +
         todayPerfil.calorieDinner +
         todayPerfil.calorieLunch +
         todayPerfil.calorieSnack;
+  }
+
+
+  @action
+  void resetCounterCalorie(ResumedPerfil resumedPerfil){
+    resumedPerfil.calorieBreakfast = 0;
+    resumedPerfil.calorieDinner = 0;
+    resumedPerfil.calorieLunch = 0;
+    resumedPerfil.calorieSnack = 0;
+    addTodayResumed(resumedPerfil);
   }
 
   @action
@@ -97,4 +112,11 @@ abstract class _ResumedPerfilList with Store {
     }
 
   }
+
+  @action
+  void addTodayResumed(ResumedPerfil todayPerfil){
+    _resumedPerfil.removeWhere((toRemove) => toRemove.id == todayPerfil.id);
+    _resumedPerfil.add(todayPerfil);
+  }
+
 }

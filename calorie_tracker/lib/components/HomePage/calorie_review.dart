@@ -1,20 +1,31 @@
+import 'package:calorie_tracker/model/resumed_perfil.dart';
+import 'package:calorie_tracker/store/resumed_perfil_list.dart';
 import 'package:calorie_tracker/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:calorie_tracker/data/dummy_data.dart';
 // import 'package:calorie_tracker/model/user.dart';
+import 'package:get_it/get_it.dart';
 
 class CalorieReview extends StatelessWidget {
   CalorieReview({key});
   final user = userData;
+  ResumedPerfil perfil = GetIt.I.get<ResumedPerfilList>().todayResumedPerfil;
+  int totalCalorieConsumed = 0;
+
   // Tive que colocar a inicialização do map dentro do build,porque as expressões de inicialização
   //são avaliadas antes que o construtor do objeto seja executado,
   //assim ele estava iniciando antes do objeto dummy
 
   @override
   Widget build(BuildContext context) {
+    totalCalorieConsumed = perfil.calorieBreakfast +
+        perfil.calorieDinner +
+        perfil.calorieLunch +
+        perfil.calorieSnack;
     final Map<String, double> dataMap = {
-      'Calorias': user.consumedCalorie,
+      // 'Calorias': user.consumedCalorie,
+      'Calorias': totalCalorieConsumed.toDouble()
     };
     final colorList = <Color>[
       Theme.of(context).colorScheme.secondary,
@@ -23,7 +34,7 @@ class CalorieReview extends StatelessWidget {
     final headlineCorpo = Theme.of(context).textTheme.titleMedium!;
     final headlineNumbers = Theme.of(context).textTheme.titleSmall!;
     final int leftoverCalorie =
-        (user.targetCalorie - user.consumedCalorie).toInt();
+        (user.targetCalorie - totalCalorieConsumed).toInt();
     return InkWell(
       onTap: () {
         Navigator.of(context).pushReplacementNamed(AppRoutes.dairy);
@@ -120,7 +131,7 @@ class CalorieReview extends StatelessWidget {
                               style: headlineCorpo,
                             ),
                             Text(
-                              user.consumedCalorie.toStringAsFixed(0),
+                              totalCalorieConsumed.toStringAsFixed(0),
                               style: headlineNumbers,
                             ),
                           ],

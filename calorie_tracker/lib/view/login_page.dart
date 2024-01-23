@@ -1,4 +1,5 @@
 import 'package:calorie_tracker/utils/app_routes.dart';
+import 'package:calorie_tracker/utils/util_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:calorie_tracker/network/http.dart';
 import 'dart:convert';
@@ -32,6 +33,8 @@ class _LoginPageState extends State<LoginPage> {
           'checkLogin', 'post', {'email': email, 'password': password});
       if (response['status'] == 'Authenticated') {
         AuthManager.login(response['id']);
+        String? userId =  await AuthManager.getUserId();
+        UtilCustom().setUserData(userId!);
         Navigator.of(context).pushReplacementNamed(AppRoutes.home);
       } else {
         setState(() {

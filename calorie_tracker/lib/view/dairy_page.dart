@@ -93,17 +93,20 @@ class _DairyPageState extends State<DairyPage> {
     return widgets;
   }
 
-  int totalConsumed(ResumedPerfilList perfilAux) {
-    ResumedPerfil perfil = perfilAux.todayResumedPerfil;
+  int totalConsumed(ResumedPerfil perfil) {
     return perfil.calorieBreakfast +
         perfil.calorieDinner +
         perfil.calorieLunch +
         perfil.calorieSnack;
   }
+  double totalSpend(User user, ResumedPerfil perfil){
+    return user.targetCalorie - totalConsumed(perfil);
+  }
 
   @override
   Widget build(BuildContext context) {
-    ResumedPerfilList perfil = GetIt.I.get<ResumedPerfilList>();
+    // ResumedPerfilList perfil = GetIt.I.get<ResumedPerfilList>();
+    ResumedPerfil todayPerfil = GetIt.I.get<ResumedPerfilList>().todayResumedPerfil;
     double mediaQueryHeight =
         MediaQuery.of(context).size.height - kBottomNavigationBarHeight;
     // user.targetCalorie - user.consumedCalorie + user.dairyExercice;
@@ -144,7 +147,7 @@ class _DairyPageState extends State<DairyPage> {
                     Column(
                       children: [
                         Text(
-                          user.consumedCalorie.toStringAsFixed(0),
+                          totalConsumed(todayPerfil).toStringAsFixed(0),
                           style: Theme.of(context).textTheme.bodyMedium!,
                         ),
                         SizedBox(height: 2),
@@ -166,7 +169,7 @@ class _DairyPageState extends State<DairyPage> {
                     Column(
                       children: [
                         Text(
-                          perfil.consumedCalorie.toStringAsFixed(0),
+                          totalSpend(user, todayPerfil).toStringAsFixed(0),
                           style: Theme.of(context).textTheme.titleSmall!,
                         ),
                         SizedBox(height: 2),
