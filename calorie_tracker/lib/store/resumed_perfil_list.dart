@@ -24,6 +24,9 @@ abstract class _ResumedPerfilList with Store {
   @observable
   int consumedCalorie = 0;
 
+  @observable
+  bool showMacrosDataChanged = false;
+
   @computed
   ResumedPerfil get todayResumedPerfil {
     return _resumedPerfil.firstWhere(
@@ -39,12 +42,6 @@ abstract class _ResumedPerfilList with Store {
 
   @action
   void totalConsumed([DateTime? dayPassed]) {
-    // dayPassed ??= DateTime(1990, 1, 1);
-    // if (dayPassed == DateTime(1900, 1, 1)) {
-    //   dayPassed = utils.getToday();
-    // }
-    // ResumedPerfil perfil =
-    //     _resumedPerfil.firstWhere((perfil) => isSameDay(perfil.day, dayPassed!));
     ResumedPerfil todayPerfil = todayResumedPerfil;
     List<Meal> meals = GetIt.I.get<MealList>().meals;
     String typeMeal = utils.typeMeal(meals);
@@ -54,22 +51,36 @@ abstract class _ResumedPerfilList with Store {
 
     meals.forEach((meal) {
       FoodDetails auxDetail = foodsDetails.getDetailById(meal.foodId);
+      print('ResumedPerfilList totalConsumed - $typeMeal');
       if (typeMeal == 'Café da Manhã') {
         todayPerfil.calorieBreakfast =
             todayPerfil.calorieBreakfast + auxDetail.quantityCal;
+        todayPerfil.carbBreakfast = todayPerfil.carbBreakfast + auxDetail.carb;
+        todayPerfil.protBreakfast =
+            todayPerfil.protBreakfast + auxDetail.protein;
+        todayPerfil.fatBreakfast = todayPerfil.fatBreakfast + auxDetail.fat;
         // print('ResumedPerfilList totalConsumed - Café da Manhã: ${todayPerfil.calorieBreakfast}');
       } else if (typeMeal == 'Almoço') {
         todayPerfil.calorieLunch =
             todayPerfil.calorieLunch + auxDetail.quantityCal;
-            // print('ResumedPerfilList totalConsumed - Almoço: ${todayPerfil.calorieLunch}');
+        todayPerfil.carbLunch = todayPerfil.carbLunch + auxDetail.carb;
+        todayPerfil.protLunch = todayPerfil.protLunch + auxDetail.protein;
+        todayPerfil.fatLunch = todayPerfil.fatLunch + auxDetail.fat;
+        // print('ResumedPerfilList totalConsumed - Almoço: ${todayPerfil.calorieLunch}');
       } else if (typeMeal == 'Lanche') {
         todayPerfil.calorieSnack =
             todayPerfil.calorieSnack + auxDetail.quantityCal;
-            // print('ResumedPerfilList totalConsumed - Lanche: ${todayPerfil.calorieSnack}');
+        todayPerfil.carbSnack = todayPerfil.carbSnack + auxDetail.carb;
+        todayPerfil.protSnack = todayPerfil.protSnack + auxDetail.protein;
+        todayPerfil.fatSnack = todayPerfil.fatSnack + auxDetail.fat;
+        // print('ResumedPerfilList totalConsumed - Lanche: ${todayPerfil.calorieSnack}');
       } else {
         todayPerfil.calorieDinner =
             todayPerfil.calorieDinner + auxDetail.quantityCal;
-            // print('ResumedPerfilList totalConsumed - Jantar: ${todayPerfil.calorieDinner}');
+        todayPerfil.carbDinner = todayPerfil.carbDinner + auxDetail.carb;
+        todayPerfil.protDinner = todayPerfil.protDinner + auxDetail.protein;
+        todayPerfil.fatDinner = todayPerfil.fatDinner + auxDetail.fat;
+        // print('ResumedPerfilList totalConsumed - Jantar: ${todayPerfil.calorieDinner}');
       }
     });
     addTodayResumed(todayPerfil);
@@ -79,14 +90,32 @@ abstract class _ResumedPerfilList with Store {
         todayPerfil.calorieSnack;
   }
 
-
   @action
-  void resetCounterCalorie(ResumedPerfil resumedPerfil){
+  void resetCounterCalorie(ResumedPerfil resumedPerfil) {
     resumedPerfil.calorieBreakfast = 0;
     resumedPerfil.calorieDinner = 0;
     resumedPerfil.calorieLunch = 0;
     resumedPerfil.calorieSnack = 0;
+    // ResumedPerfil perfil = resetMacros(resumedPerfil);
+    // Modifique a variável observável para notificar sobre mudanças nos dados
+    showMacrosDataChanged = !showMacrosDataChanged;
     addTodayResumed(resumedPerfil);
+  }
+
+  ResumedPerfil resetMacros(ResumedPerfil perfil) {
+    perfil.carbDinner = 0;
+    perfil.carbLunch = 0;
+    perfil.carbBreakfast = 0;
+    perfil.carbSnack = 0;
+    perfil.protDinner = 0;
+    perfil.protLunch = 0;
+    perfil.protBreakfast = 0;
+    perfil.protSnack = 0;
+    perfil.fatDinner = 0;
+    perfil.fatLunch = 0;
+    perfil.fatBreakfast = 0;
+    perfil.fatSnack = 0;
+    return perfil;
   }
 
   @action
@@ -106,17 +135,16 @@ abstract class _ResumedPerfilList with Store {
     // Para retornar um perfil
     // ResumedPerfil currentPerfil = _resumedPerfil.firstWhere((searchPerfil) => searchPerfil.id == perfil.id);
 
-    int index = _resumedPerfil.indexWhere((searchPerfil) => searchPerfil.id == perfil.id);
-    if(index != -1){
+    int index = _resumedPerfil
+        .indexWhere((searchPerfil) => searchPerfil.id == perfil.id);
+    if (index != -1) {
       _resumedPerfil[index].userId = idUser;
     }
-
   }
 
   @action
-  void addTodayResumed(ResumedPerfil todayPerfil){
+  void addTodayResumed(ResumedPerfil todayPerfil) {
     _resumedPerfil.removeWhere((toRemove) => toRemove.id == todayPerfil.id);
     _resumedPerfil.add(todayPerfil);
   }
-
 }

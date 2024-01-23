@@ -24,6 +24,7 @@ class ShowFood extends StatelessWidget {
   }
 
   void addingMeal(MealList meals, String foodID, ManageState states) {
+    //Possivelmente o problema está aqui
     bool isBreakfast = false;
     bool isLunch = false;
     bool isSnack = false;

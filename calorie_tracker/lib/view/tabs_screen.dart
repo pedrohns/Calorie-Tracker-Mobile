@@ -1,3 +1,4 @@
+import 'package:calorie_tracker/view/configuration_page.dart';
 import 'package:calorie_tracker/view/dairy_page.dart';
 import 'package:calorie_tracker/view/home_page.dart';
 import 'package:calorie_tracker/view/login_page.dart';
@@ -28,6 +29,10 @@ class _TabsScreenState extends State<TabsScreen> {
       {
         'title': 'Diário',
         'screen': const DairyPage(),
+      },
+      {
+        'title': 'Configurações',
+        'screen': const ConfigurationPage(),
       }
     ];
   }
@@ -71,6 +76,10 @@ class _TabsScreenState extends State<TabsScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.book),
             label: 'Diário',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.manage_accounts),
+            label: 'Configurações',
           ),
         ],
       ),

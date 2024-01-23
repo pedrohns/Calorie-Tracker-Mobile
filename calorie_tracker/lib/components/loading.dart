@@ -33,7 +33,7 @@ class Loading extends StatelessWidget {
                     children: [
                       Container(
                         width: mediaQuery * 0.88,
-                        height: mediaQuery * 0.15,
+                        height: mediaQueryHeight * 0.10,
                         decoration: BoxDecoration(
                           color: Colors.grey,
                           border: Border.all(

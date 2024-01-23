@@ -56,6 +56,23 @@ mixin _$ResumedPerfilList on _ResumedPerfilList, Store {
     });
   }
 
+  late final _$showMacrosDataChangedAtom =
+      Atom(name: '_ResumedPerfilList.showMacrosDataChanged', context: context);
+
+  @override
+  bool get showMacrosDataChanged {
+    _$showMacrosDataChangedAtom.reportRead();
+    return super.showMacrosDataChanged;
+  }
+
+  @override
+  set showMacrosDataChanged(bool value) {
+    _$showMacrosDataChangedAtom.reportWrite(value, super.showMacrosDataChanged,
+        () {
+      super.showMacrosDataChanged = value;
+    });
+  }
+
   late final _$_ResumedPerfilListActionController =
       ActionController(name: '_ResumedPerfilList', context: context);
 
@@ -129,6 +146,7 @@ mixin _$ResumedPerfilList on _ResumedPerfilList, Store {
   String toString() {
     return '''
 consumedCalorie: ${consumedCalorie},
+showMacrosDataChanged: ${showMacrosDataChanged},
 perfil: ${perfil},
 todayResumedPerfil: ${todayResumedPerfil}
     ''';
