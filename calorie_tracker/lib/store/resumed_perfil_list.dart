@@ -44,14 +44,14 @@ abstract class _ResumedPerfilList with Store {
   void totalConsumed([DateTime? dayPassed]) {
     ResumedPerfil todayPerfil = todayResumedPerfil;
     List<Meal> meals = GetIt.I.get<MealList>().meals;
-    String typeMeal = utils.typeMeal(meals);
     FoodDetailsList foodsDetails = GetIt.I.get<FoodDetailsList>();
     // faço isso para que quando percorrer o array de alimentos, não somar tudo novamente
     resetCounterCalorie(todayPerfil);
 
     meals.forEach((meal) {
       FoodDetails auxDetail = foodsDetails.getDetailById(meal.foodId);
-      print('ResumedPerfilList totalConsumed - $typeMeal');
+      String typeMeal = utils.typeMeal(meal);
+      // print('ResumedPerfilList totalConsumed - $typeMeal');
       if (typeMeal == 'Café da Manhã') {
         todayPerfil.calorieBreakfast =
             todayPerfil.calorieBreakfast + auxDetail.quantityCal;
@@ -84,6 +84,7 @@ abstract class _ResumedPerfilList with Store {
       }
     });
     addTodayResumed(todayPerfil);
+    // updateResumedPerfilData(todayPerfil);
     consumedCalorie = todayPerfil.calorieBreakfast +
         todayPerfil.calorieDinner +
         todayPerfil.calorieLunch +
@@ -96,13 +97,13 @@ abstract class _ResumedPerfilList with Store {
     resumedPerfil.calorieDinner = 0;
     resumedPerfil.calorieLunch = 0;
     resumedPerfil.calorieSnack = 0;
-    // ResumedPerfil perfil = resetMacros(resumedPerfil);
+    resetMacros(resumedPerfil);
     // Modifique a variável observável para notificar sobre mudanças nos dados
     showMacrosDataChanged = !showMacrosDataChanged;
     addTodayResumed(resumedPerfil);
   }
 
-  ResumedPerfil resetMacros(ResumedPerfil perfil) {
+  void resetMacros(ResumedPerfil perfil) {
     perfil.carbDinner = 0;
     perfil.carbLunch = 0;
     perfil.carbBreakfast = 0;
@@ -115,7 +116,6 @@ abstract class _ResumedPerfilList with Store {
     perfil.fatLunch = 0;
     perfil.fatBreakfast = 0;
     perfil.fatSnack = 0;
-    return perfil;
   }
 
   @action
@@ -126,10 +126,13 @@ abstract class _ResumedPerfilList with Store {
   }
 
   @action
-  void teste() {
-    print('ResumedPerfilList - fired');
+  void updateResumedPerfilData(ResumedPerfil updatePerfil) {
+    int index =
+        _resumedPerfil.indexWhere((perfil) => perfil.id == updatePerfil.id);
+    if (index != -1) {
+      _resumedPerfil[index] = updatePerfil;
+    }
   }
-
   @action
   void addIdUser(ResumedPerfil perfil, String idUser) {
     // Para retornar um perfil

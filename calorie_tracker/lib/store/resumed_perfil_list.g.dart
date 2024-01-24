@@ -110,11 +110,11 @@ mixin _$ResumedPerfilList on _ResumedPerfilList, Store {
   }
 
   @override
-  void teste() {
+  void updateResumedPerfilData(ResumedPerfil updatePerfil) {
     final _$actionInfo = _$_ResumedPerfilListActionController.startAction(
-        name: '_ResumedPerfilList.teste');
+        name: '_ResumedPerfilList.updateResumedPerfilData');
     try {
-      return super.teste();
+      return super.updateResumedPerfilData(updatePerfil);
     } finally {
       _$_ResumedPerfilListActionController.endAction(_$actionInfo);
     }

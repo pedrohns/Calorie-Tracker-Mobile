@@ -17,14 +17,15 @@ class UtilCustom {
       return mealList.dinnerMeals;
     }
   }
-
-  String typeMeal(List<Meal> meals) {
-    if (meals.every((meal) => meal.breakfast))
+  //Aqui está o problema
+  String typeMeal(Meal meal) {
+    // print('util_custom typeMeal - ${meals.every((meal) => meal.breakfast)}');
+    if(meal.breakfast)
       return 'Café da Manhã';
-    else if (meals.every((meal) => meal.lunch))
-      return 'Almoço';
-    else if (meals.every((meal) => meal.snack))
-      return 'Lanche';
+      else if (meal.lunch)
+        return 'Almoço';
+      else if (meal.snack)
+        return 'Lanche';
     else
       return 'Jantar';
   }

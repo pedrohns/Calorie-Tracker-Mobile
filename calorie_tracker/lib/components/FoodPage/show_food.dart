@@ -39,6 +39,9 @@ class ShowFood extends StatelessWidget {
     } else {
       isDinner = true;
     }
+
+    // print(
+    //     'show_food addingMeal - breakfast: $isBreakfast - lunch: $isLunch - snack: $isSnack - dinner: $isDinner');
     //  meals.cleanMeal();
     meals.addMeal(Meal(
       id: GenerateRowid().generate(),
@@ -53,8 +56,7 @@ class ShowFood extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Food> foods =
-        GetIt.I.get<FoodList>().searchResults;
+    List<Food> foods = GetIt.I.get<FoodList>().searchResults;
     List<FoodDetails> foodsDetails =
         GetIt.I.get<FoodDetailsList>().searchResults;
     MealList meals = GetIt.I.get<MealList>();

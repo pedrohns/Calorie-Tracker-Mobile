@@ -99,14 +99,16 @@ class _DairyPageState extends State<DairyPage> {
         perfil.calorieLunch +
         perfil.calorieSnack;
   }
-  double totalSpend(User user, ResumedPerfil perfil){
+
+  double totalSpend(User user, ResumedPerfil perfil) {
     return user.targetCalorie - totalConsumed(perfil);
   }
 
   @override
   Widget build(BuildContext context) {
-    // ResumedPerfilList perfil = GetIt.I.get<ResumedPerfilList>();
-    ResumedPerfil todayPerfil = GetIt.I.get<ResumedPerfilList>().todayResumedPerfil;
+    ResumedPerfilList perfilList = GetIt.I.get<ResumedPerfilList>();
+    ResumedPerfil todayPerfil =
+        GetIt.I.get<ResumedPerfilList>().todayResumedPerfil;
     double mediaQueryHeight =
         MediaQuery.of(context).size.height - kBottomNavigationBarHeight;
     // user.targetCalorie - user.consumedCalorie + user.dairyExercice;
@@ -122,8 +124,9 @@ class _DairyPageState extends State<DairyPage> {
             bottom: 10.0,
             right: 20.0,
           ),
-          child: Observer(
-            builder: (_) => Column(
+          child: Observer(builder: (_) {
+            bool dataChanged = !perfilList.showMacrosDataChanged;
+            return Column(
               children: [
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -179,8 +182,8 @@ class _DairyPageState extends State<DairyPage> {
                   ],
                 ),
               ],
-            ),
-          ),
+            );
+          }),
         ),
         // Fim da primeira parte
         Expanded(

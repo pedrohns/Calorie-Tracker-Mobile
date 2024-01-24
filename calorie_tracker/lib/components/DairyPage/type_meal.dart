@@ -30,28 +30,36 @@ class TypeMeal extends StatelessWidget {
     return consumedCalorie;
   }
 
-  Text showMacros(String title, ResumedPerfil perfil, BuildContext context) {
-    print('type_meal showMacros - Title $title');
+  Tooltip showMacros(String title, ResumedPerfil perfil, BuildContext context) {
+    // print('type_meal showMacros - Title $title');
     if (title == 'Café da Manhã') {
-      print('type_meal showMacros - Café da manhã ${perfil.carbBreakfast}g ${perfil.protBreakfast}g ${perfil.fatBreakfast}g');
-      return Text(
-          '${perfil.carbBreakfast}g ${perfil.protBreakfast}g ${perfil.fatBreakfast}g',
-          style: Theme.of(context).textTheme.bodySmall);
+      return Tooltip(
+        message: 'Macros divididos por: Carb, Prot, Fat.',
+        child: Text(
+            '${perfil.carbBreakfast}g ${perfil.protBreakfast}g ${perfil.fatBreakfast}g',
+            style: Theme.of(context).textTheme.bodySmall),
+      );
     } else if (title == 'Almoço') {
-      print('type_meal showMacros - Almoço ${perfil.carbLunch}g ${perfil.protLunch}g ${perfil.fatLunch}g');
-      return Text(
-          '${perfil.carbLunch}g ${perfil.protLunch}g ${perfil.fatLunch}g',
-          style: Theme.of(context).textTheme.bodySmall);
+      return Tooltip(
+        message: 'Macros divididos por: Carb, Prot, Fat.',
+        child: Text(
+            '${perfil.carbLunch}g ${perfil.protLunch}g ${perfil.fatLunch}g',
+            style: Theme.of(context).textTheme.bodySmall),
+      );
     } else if (title == 'Lanche') {
-      print('type_meal showMacros - Lanche ${perfil.carbSnack}g ${perfil.protSnack}g ${perfil.fatSnack}g');
-      return Text(
-          '${perfil.carbSnack}g ${perfil.protSnack}g ${perfil.fatSnack}g',
-          style: Theme.of(context).textTheme.bodySmall);
+      return Tooltip(
+        message: 'Macros divididos por: Carb, Prot, Fat.',
+        child: Text(
+            '${perfil.carbSnack}g ${perfil.protSnack}g ${perfil.fatSnack}g',
+            style: Theme.of(context).textTheme.bodySmall),
+      );
     } else {
-      print('type_meal showMacros - Jantar ${perfil.carbDinner}g ${perfil.protDinner}g ${perfil.fatDinner}g');
-      return Text(
-          '${perfil.carbDinner}g ${perfil.protDinner}g ${perfil.fatDinner}g',
-          style: Theme.of(context).textTheme.bodySmall);
+      return Tooltip(
+        message: 'Macros divididos por: Carb, Prot, Fat.',
+        child: Text(
+            '${perfil.carbDinner}g ${perfil.protDinner}g ${perfil.fatDinner}g',
+            style: Theme.of(context).textTheme.bodySmall),
+      );
     }
   }
 
@@ -72,10 +80,10 @@ class TypeMeal extends StatelessWidget {
     // double mediaQueryWidth = MediaQuery.of(context).size.width;
     ManageState states = GetIt.I.get<ManageState>();
     MealList meals = GetIt.I.get<MealList>();
-    FoodDetailsList foodsDetails = GetIt.I.get<FoodDetailsList>();
+    // FoodDetailsList foodsDetails = GetIt.I.get<FoodDetailsList>();
     ResumedPerfilList perfilList = GetIt.I.get<ResumedPerfilList>();
     ResumedPerfil perfil = GetIt.I.get<ResumedPerfilList>().todayResumedPerfil;
-    List<Meal> mealSelected = whichMeal(secondTitle, meals);
+    // List<Meal> mealSelected = whichMeal(secondTitle, meals);
     double mediaQueryHeight =
         MediaQuery.of(context).size.height - kBottomNavigationBarHeight;
     return hasButton == false
